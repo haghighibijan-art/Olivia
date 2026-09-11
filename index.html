@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Lista Nascita di Olivia ✨ Regala un'avventura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f27a7d;
+      --primary-hover: #e06265;
+      --bg: #fdfbf7;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --text-muted: #718096;
+      --accent: #fcd34d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-weight: 800;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+    }
+
+    .card-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      background: #eee;
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .price-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      color: var(--text);
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card-body {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .card-snippet {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .btn-detail {
+      background: #f8fafc;
+      color: var(--primary);
+      border: 1px solid #ffe4e6;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .card:hover .btn-detail {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Modale */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: #fff;
+      max-width: 520px;
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      animation: popIn 0.25s ease-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .modal-content {
+      padding: 1.75rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-header h2 {
+      font-size: 1.35rem;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .modal-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-buy {
+      display: block;
+      width: 100%;
+      background: #0070ba;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.9rem 1.2rem;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      transition: background 0.2s;
+    }
+
+    .btn-buy:hover {
+      background: #005ea6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Le Future Avventure di Olivia 🍼✨</h1>
+      <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
+    </header>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- Modale Dettagli -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <img id="modalImg" class="modal-img" src="" alt="Esperienza">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle"></h2>
+          <span class="modal-price" id="modalPrice"></span>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <a id="modalPaypalBtn" class="btn-buy" target="_blank" rel="noopener">🎁 Regala con PayPal</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME
+    const PAYPAL_USERNAME = "TUONOME"; // Es: 'camillaeamico' oppure 'olivia2026'
+
+    const experiences = [
+      {
+        id: 1,
+        title: "Il primo viaggio in aereo di Olivia",
+        price: 100,
+        image: "volo.jpg",
+        snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.",
+        description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi passaporti e l'inizio del suo diario di viaggio tra le nuvole."
+      },
+      {
+        id: 2,
+        title: "La prima volta a Gardaland di Olivia",
+        price: 50,
+        image: "gardaland.jpg",
+        snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.",
+        description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe."
+      },
+      {
+        id: 3,
+        title: "La prima volta a Collodi di Olivia",
+        price: 30,
+        image: "collodi.jpg",
+        snippet: "Alla scoperta del Parco di Pinocchio e delle meraviglie toscane.",
+        description: "Visita al Parco di Pinocchio a Collodi: una passeggiata tra sculture all'aperto, teatrini di marionette e sentieri incantati nella natura."
+      },
+      {
+        id: 4,
+        title: "Il primo corso di nuoto di Olivia",
+        price: 120,
+        image: "piscina.jpg",
+        snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.",
+        description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati."
+      }
+    ];
+
+    const grid = document.getElementById("grid");
+    const backdrop = document.getElementById("modalBackdrop");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalPaypalBtn = document.getElementById("modalPaypalBtn");
+
+    experiences.forEach(exp => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.onclick = () => openModal(exp);
+      card.innerHTML = `
+        <div class="card-img-wrapper">
+          <img src="${exp.image}" alt="${exp.title}" loading="lazy">
+          <span class="price-tag">${exp.price}€</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">${exp.title}</h3>
+          <p class="card-snippet">${exp.snippet}</p>
+          <div class="btn-detail">Scopri e contribuisci ➔</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    function openModal(exp) {
+      modalImg.src = exp.image;
+      modalTitle.innerText = exp.title;
+      modalPrice.innerText = exp.price + "€";
+      modalDesc.innerText = exp.description;
+      
+      // Crea il link diretto a PayPal.me con l'importo precompilato
+      modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
+      modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
+
+      backdrop.style.display = "flex";
+    }
+
+    function closeModal() {
+      backdrop.style.display = "none";
+    }
+
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+  </script>
+</body>
+</html>
