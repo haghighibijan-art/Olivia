@@ -271,8 +271,8 @@
   </div>
 
   <script>
-    // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME
-    const PAYPAL_USERNAME = "TUONOME"; // Es: 'camillaeamico' oppure 'olivia2026'
+    // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME (es. 'marioverdi' o 'olivia2026')
+    const PAYPAL_USERNAME = "TUONOME";
 
     const experiences = [
       {
@@ -281,7 +281,7 @@
         price: 100,
         image: "volo.jpg",
         snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.",
-        description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi passaporti e l'inizio del suo diario di viaggio tra le nuvole."
+        description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole."
       },
       {
         id: 2,
@@ -306,6 +306,38 @@
         image: "piscina.jpg",
         snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.",
         description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati."
+      },
+      {
+        id: 5,
+        title: "Prime lezioni di surf per Olivia a Fuerteventura",
+        price: 100,
+        image: "surf.jpg",
+        snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.",
+        description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura."
+      },
+      {
+        id: 6,
+        title: "Prima visita di Olivia allo Zoo di Pistoia",
+        price: 30,
+        image: "zoo.jpg",
+        snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.",
+        description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale."
+      },
+      {
+        id: 7,
+        title: "Primo viaggio e Baby dance a Ibiza per Olivia",
+        price: 70,
+        image: "ibiza.jpg",
+        snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.",
+        description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!"
+      },
+      {
+        id: 8,
+        title: "Prime lezioni di sci all'Abetone",
+        price: 50,
+        image: "abetone.jpg",
+        snippet: "Pupazzi di neve, slittino e i primi passi con gli sciettini sulla neve fresca.",
+        description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio."
       }
     ];
 
@@ -341,7 +373,7 @@
       modalPrice.innerText = exp.price + "€";
       modalDesc.innerText = exp.description;
       
-      // Crea il link diretto a PayPal.me con l'importo precompilato
+      // Link diretto a PayPal con importo preimpostato
       modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
       modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
 
