@@ -39,7 +39,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2rem;
     }
 
     header h1 {
@@ -55,6 +55,66 @@
       max-width: 650px;
       margin: 0 auto;
     }
+
+    /* --- STILE DEL COUNTDOWN DELICATO --- */
+    .countdown-container {
+      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
+      border: 1px solid #ffccd5;
+      border-radius: 20px;
+      padding: 1.5rem;
+      max-width: 550px;
+      margin: 0 auto 3.5rem auto;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
+    }
+
+    .countdown-container h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    .time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #ffffff;
+      padding: 0.8rem 1rem;
+      border-radius: 15px;
+      min-width: 75px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+
+    .time-box span {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .time-box small {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 500px) {
+      .countdown { gap: 0.5rem; }
+      .time-box { min-width: 65px; padding: 0.6rem; }
+      .time-box span { font-size: 1.5rem; }
+      .time-box small { font-size: 0.7rem; }
+    }
+    /* ------------------------------------ */
 
     .grid {
       display: grid;
@@ -163,7 +223,7 @@
       overflow: hidden;
       position: relative;
       animation: popIn 0.25s ease-out;
-      max-height: 90vh; /* Evita che esca dallo schermo se l'immagine è alta */
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
     }
@@ -196,31 +256,30 @@
       background: rgba(0,0,0,0.9);
     }
 
-    /* CSS AGGIORNATO PER L'IMMAGINE INTERA E CLICCABILE */
     #modalImgLink {
       display: block;
-      background-color: #f1f5f9; /* Sfondo chiaro per riempire eventuali spazi vuoti */
+      background-color: #f1f5f9;
       text-align: center;
-      cursor: zoom-in; /* Mostra l'icona della lente di ingrandimento */
+      cursor: zoom-in;
     }
 
     .modal-img {
       width: 100%;
       height: auto;
-      max-height: 40vh; /* Altezza massima dinamica per adattarsi allo schermo */
-      object-fit: contain; /* Non taglia l'immagine, la ridimensiona mostrandola tutta */
+      max-height: 40vh;
+      object-fit: contain;
       display: block;
       margin: 0 auto;
       transition: opacity 0.2s;
     }
 
     .modal-img:hover {
-      opacity: 0.85; /* Effetto visivo al passaggio del mouse */
+      opacity: 0.85;
     }
 
     .modal-content {
       padding: 1.75rem;
-      overflow-y: auto; /* Permette di scorrere il testo se è troppo lungo */
+      overflow-y: auto;
     }
 
     .modal-header {
@@ -273,8 +332,31 @@
   <div class="container">
     <header>
       <h1>Le Future Avventure di Olivia 🍼✨</h1>
-      <p>Cari Amici e Parenti, abbiamo già quasi tutto il  materiale necessario per accogliere Olivia. Se desiderate farle un regalo, abbiamo pensato ad un contributo per i suoi primi ricordi ed esperienze di vita!</p>
+      <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
+
+    <!-- BOX COUNTDOWN AGGIUNTO QUI -->
+    <div class="countdown-container">
+      <h3>⏳ Quanto manca all'arrivo di Olivia? 🎀</h3>
+      <div class="countdown" id="countdown-timer">
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Giorni</small>
+        </div>
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Ore</small>
+        </div>
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Minuti</small>
+        </div>
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Secondi</small>
+        </div>
+      </div>
+    </div>
 
     <div class="grid" id="grid"></div>
   </div>
@@ -284,7 +366,6 @@
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal()">✕</button>
       
-      <!-- NUOVO WRAPPER: L'immagine ora è dentro un link cliccabile -->
       <a id="modalImgLink" href="" target="_blank" title="Clicca per ingrandire l'immagine">
         <img id="modalImg" class="modal-img" src="" alt="Esperienza">
       </a>
@@ -303,6 +384,34 @@
   <script>
     // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME
     const PAYPAL_USERNAME = "TUONOME"; 
+
+    // --- SCRIPT PER IL COUNTDOWN (8 DICEMBRE 2026) ---
+    const targetDate = new Date("December 8, 2026 00:00:00").getTime();
+
+    const countdownInterval = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      // Se la data è passata, mostra un messaggio speciale
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown-timer").innerHTML = "<h4 style='color:var(--primary); font-size:1.5rem; margin:1rem 0;'>🎉 Benvenuta al mondo Olivia! 🎀</h4>";
+        return;
+      }
+
+      // Calcoli per giorni, ore, minuti e secondi
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Formatta con lo zero davanti se < 10 (es. 09 invece di 9)
+      document.getElementById("days").innerText = days.toString().padStart(2, '0');
+      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+    }, 1000);
+    // ------------------------------------------------
 
     const experiences = [
       {
