@@ -308,7 +308,7 @@
       {
         id: 1,
         title: "Il primo viaggio in aereo di Olivia",
-        price: 50,
+        price: 100,
         image: "volo.jpg",
         snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.",
         description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole."
@@ -316,7 +316,7 @@
       {
         id: 2,
         title: "La prima volta a Gardaland di Olivia",
-        price: 40,
+        price: 50,
         image: "gardaland.jpg",
         snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.",
         description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe."
@@ -332,7 +332,7 @@
       {
         id: 4,
         title: "Il primo corso di nuoto di Olivia",
-        price: 60,
+        price: 120,
         image: "piscina.jpg",
         snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.",
         description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati."
@@ -340,21 +340,29 @@
       {
         id: 5,
         title: "Prime lezioni di surf per Olivia a Fuerteventura",
-        price: 50,
+        price: 100,
         image: "surf.jpg",
         snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.",
         description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura."
       },
       {
         id: 6,
+        title: "Prima visita di Olivia allo Zoo di Pistoia",
+        price: 30,
+        image: "zoo.jpg",
+        snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.",
+        description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale."
+      },
+      {
+        id: 7,
         title: "Primo viaggio e Baby dance a Ibiza per Olivia",
-        price: 50,
+        price: 70,
         image: "ibiza.jpg",
         snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.",
         description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!"
       },
       {
-        id: 7,
+        id: 8,
         title: "Prime lezioni di sci all'Abetone",
         price: 50,
         image: "abetone.jpg",
@@ -362,7 +370,7 @@
         description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio."
       },
       {
-        id: 8,
+        id: 9,
         title: "La prima volta di Olivia all'Acquario di Genova",
         price: 40,
         image: "acquario.jpg",
@@ -370,7 +378,7 @@
         description: "Un viaggio magico sotto il mare tra le vasche giganti dell'Acquario di Genova: per ammirare da vicino i delfini, i pinguini e le creature degli abissi con gli occhi pieni di stupore!"
       },
       {
-        id: 9,
+        id: 10,
         title: "Supporto psicologico e aperitivi per Babbo e Mamma",
         price: 10,
         image: "supporto.jpg",
@@ -378,21 +386,29 @@
         description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!"
       },
       {
-        id: 10,
+        id: 11,
         title: "Per un regalo tradizionale - IDEALBIMBO",
         price: "Variabile", 
         image: "lista.jpg",
         snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.",
-        description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login, NUMERO LISTA: 616386  -  PASSWORD: OLIVIA ).",
+        description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).",
         isExternalLink: true,
         urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp"
+      },
+      {
+        id: 12,
+        title: "La prima lezione di CrossFit di Olivia",
+        price: 30,
+        image: "crossfit.jpg",
+        snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.",
+        description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!"
       }
     ];
 
     const grid = document.getElementById("grid");
     const backdrop = document.getElementById("modalBackdrop");
     const modalImg = document.getElementById("modalImg");
-    const modalImgLink = document.getElementById("modalImgLink"); // Aggiunto link immagine
+    const modalImgLink = document.getElementById("modalImgLink"); 
     const modalTitle = document.getElementById("modalTitle");
     const modalPrice = document.getElementById("modalPrice");
     const modalDesc = document.getElementById("modalDesc");
@@ -421,7 +437,7 @@
 
     function openModal(exp) {
       modalImg.src = exp.image;
-      modalImgLink.href = exp.image; // Questo fa sì che il clic sull'immagine apra il file originale
+      modalImgLink.href = exp.image; 
       
       modalTitle.innerText = exp.title;
       modalDesc.innerText = exp.description;
