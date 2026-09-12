@@ -384,9 +384,395 @@
     </div>
   </div>
 
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Lista Nascita di Olivia ✨ Regala un'avventura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f27a7d;
+      --primary-hover: #e06265;
+      --bg: #fdfbf7;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --text-muted: #718096;
+      --accent: #fcd34d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-weight: 800;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* --- STILE DEL COUNTDOWN --- */
+    .countdown-container {
+      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
+      border: 1px solid #ffccd5;
+      border-radius: 20px;
+      padding: 1.5rem;
+      max-width: 550px;
+      margin: 4rem auto 0 auto;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
+    }
+
+    .countdown-container h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    .time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #ffffff;
+      padding: 0.8rem 1rem;
+      border-radius: 15px;
+      min-width: 75px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+
+    .time-box span {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .time-box small {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 500px) {
+      .countdown { gap: 0.5rem; }
+      .time-box { min-width: 65px; padding: 0.6rem; }
+      .time-box span { font-size: 1.5rem; }
+      .time-box small { font-size: 0.7rem; }
+    }
+    /* ------------------------------------ */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+    }
+
+    .card-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      background: #eee;
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .price-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      color: var(--text);
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card-body {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .card-snippet {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .btn-detail {
+      background: #f8fafc;
+      color: var(--primary);
+      border: 1px solid #ffe4e6;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .card:hover .btn-detail {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Modale */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: #fff;
+      max-width: 520px;
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      animation: popIn 0.25s ease-out;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(0,0,0,0.9);
+    }
+
+    #modalImgLink {
+      display: block;
+      background-color: #f1f5f9;
+      text-align: center;
+      cursor: zoom-in;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: auto;
+      max-height: 40vh;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      transition: opacity 0.2s;
+    }
+
+    .modal-img:hover {
+      opacity: 0.85;
+    }
+
+    .modal-content {
+      padding: 1.75rem;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-header h2 {
+      font-size: 1.35rem;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .modal-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-buy {
+      display: block;
+      width: 100%;
+      background: #0070ba;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.9rem 1.2rem;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      transition: background 0.2s;
+    }
+
+    .btn-buy:hover {
+      background: #005ea6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Le Future Avventure di Olivia 🍼✨</h1>
+      <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
+    </header>
+
+    <!-- GRIGLIA DEI REGALI -->
+    <div class="grid" id="grid"></div>
+
+    <!-- BOX COUNTDOWN SPOSTATO A FONDO PAGINA -->
+    <div class="countdown-container">
+      <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
+      <div class="countdown" id="countdown-timer">
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Giorni</small>
+        </div>
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Ore</small>
+        </div>
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Minuti</small>
+        </div>
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Secondi</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modale Dettagli -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      
+      <a id="modalImgLink" href="" target="_blank" title="Clicca per ingrandire l'immagine">
+        <img id="modalImg" class="modal-img" src="" alt="Esperienza">
+      </a>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle"></h2>
+          <span class="modal-price" id="modalPrice"></span>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <a id="modalPaypalBtn" class="btn-buy" target="_blank" rel="noopener">🎁 Regala con PayPal</a>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // 💡 USERNAME PAYPAL.ME
-    const PAYPAL_USERNAME = "CamilllaBrogioni"; 
+    // 💡 TUA EMAIL PAYPAL AGGIORNATA
+    const PAYPAL_EMAIL = "camillabrogioni85@gmail.com"; 
 
     // --- SCRIPT PER IL COUNTDOWN (8 DICEMBRE 2026) ---
     const targetDate = new Date("December 8, 2026 00:00:00").getTime();
@@ -417,7 +803,7 @@
       {
         id: 1,
         title: "Il primo viaggio in aereo di Olivia",
-        price: 50, // Prezzo aggiornato
+        price: 50, 
         image: "volo.jpg",
         snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.",
         description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole."
@@ -441,7 +827,7 @@
       {
         id: 4,
         title: "Il primo corso di nuoto di Olivia",
-        price: 50, // Prezzo aggiornato
+        price: 50, 
         image: "piscina.jpg",
         snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.",
         description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati."
@@ -449,7 +835,7 @@
       {
         id: 5,
         title: "Prime lezioni di surf per Olivia a Fuerteventura",
-        price: 50, // Prezzo aggiornato
+        price: 50, 
         image: "surf.jpg",
         snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.",
         description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura."
@@ -465,7 +851,7 @@
       {
         id: 7,
         title: "Primo viaggio e Baby dance a Ibiza per Olivia",
-        price: 50, // Prezzo aggiornato
+        price: 50, 
         image: "ibiza.jpg",
         snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.",
         description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!"
@@ -555,11 +941,14 @@
       modalPrice.innerText = priceText;
       
       if (exp.isExternalLink) {
+        // Logica per il link a IdealBimbo
         modalPaypalBtn.href = exp.urlTarget;
         modalPaypalBtn.innerText = `🛍️ Vai alla lista su Idealbimbo`;
         modalPaypalBtn.style.background = "#e53e3e"; 
       } else {
-        modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
+        // Logica Universale per PayPal tramite Indirizzo Email
+        const encodedTitle = encodeURIComponent(exp.title);
+        modalPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_EMAIL}&amount=${exp.price}&currency_code=EUR&item_name=${encodedTitle}`;
         modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
         modalPaypalBtn.style.background = "#0070ba"; 
       }
@@ -575,5 +964,8 @@
       if (e.target === backdrop) closeModal();
     });
   </script>
+</body>
+</html>
+
 </body>
 </html>
