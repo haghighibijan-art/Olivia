@@ -56,7 +56,7 @@
       margin: 0 auto;
     }
 
-    /* --- STILE DEL COUNTDOWN --- */
+    /* --- STILE DEL COUNTDOWN A FONDO PAGINA --- */
     .countdown-container {
       background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
       border: 1px solid #ffccd5;
@@ -306,20 +306,7 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    /* NUOVO STILE AVVISO PAYPAL */
-    #paypalWarning {
-      background-color: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #b91c1c;
-      padding: 1rem;
-      border-radius: 12px;
-      font-size: 0.9rem;
       margin-bottom: 1.5rem;
-      text-align: center;
-      display: none; /* Nascosto di default */
     }
 
     .btn-buy {
@@ -339,6 +326,36 @@
     .btn-buy:hover {
       background: #005ea6;
     }
+
+    /* NUOVO STILE BOX IBAN */
+    .iban-container {
+      background-color: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      display: none; /* Nascosto di default, si attiva col JS */
+    }
+
+    .iban-container h4 {
+      font-size: 1.05rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .iban-detail {
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+
+    .iban-detail strong {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -349,8 +366,10 @@
       <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
+    <!-- GRIGLIA DEI REGALI -->
     <div class="grid" id="grid"></div>
 
+    <!-- BOX COUNTDOWN SPOSTATO A FONDO PAGINA -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
       <div class="countdown" id="countdown-timer">
@@ -389,25 +408,28 @@
           <span class="modal-price" id="modalPrice"></span>
         </div>
         <p class="modal-desc" id="modalDesc"></p>
-        
-        <!-- AVVISO PAYPAL INSERITO QUI -->
-        <div id="paypalWarning">
-          ⚠️ <strong>MOLTO IMPORTANTE:</strong> <br>
-          Quando si apre PayPal, assicurati di selezionare l'opzione <br>
-          <b>"Invia a un amico o familiare"</b><br> 
-          (altrimenti verranno trattenute delle commissioni sul tuo regalo!)
-        </div>
 
         <a id="modalPaypalBtn" class="btn-buy" target="_blank" rel="noopener">🎁 Regala con PayPal</a>
+
+        <!-- BOX BONIFICO BANCARIO -->
+        <div id="ibanContainer" class="iban-container">
+          <h4>🏦 Oppure tramite Bonifico Bancario</h4>
+          <div class="iban-detail"><strong>IBAN:</strong> IT11R0538702801000004415517</div>
+          <div class="iban-detail"><strong>Intestato a:</strong> haghighi bijan e brogioni camilla</div>
+          <div class="iban-detail"><strong>Causale:</strong> Regalo nascita Olivia, <span id="ibanCausaleExp"></span></div>
+        </div>
+        
       </div>
     </div>
   </div>
 
   <script>
-    const PAYPAL_USERNAME = "CamilllaBrogioni"; 
+    // 💡 EMAIL PAYPAL
+    const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
 
-    // Countdown
+    // --- SCRIPT PER IL COUNTDOWN (8 DICEMBRE 2026) ---
     const targetDate = new Date("December 8, 2026 00:00:00").getTime();
+
     const countdownInterval = setInterval(function() {
       const now = new Date().getTime();
       const distance = targetDate - now;
@@ -428,6 +450,7 @@
       document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
       document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
     }, 1000);
+    // ------------------------------------------------
 
     const experiences = [
       {
@@ -538,7 +561,8 @@
     const modalPrice = document.getElementById("modalPrice");
     const modalDesc = document.getElementById("modalDesc");
     const modalPaypalBtn = document.getElementById("modalPaypalBtn");
-    const paypalWarning = document.getElementById("paypalWarning"); // Prende il div dell'avviso
+    const ibanContainer = document.getElementById("ibanContainer");
+    const ibanCausaleExp = document.getElementById("ibanCausaleExp");
 
     experiences.forEach(exp => {
       const card = document.createElement("div");
@@ -572,15 +596,20 @@
       modalPrice.innerText = priceText;
       
       if (exp.isExternalLink) {
+        // Se è IdealBimbo: mostra solo il tasto per il negozio, nasconde l'IBAN
         modalPaypalBtn.href = exp.urlTarget;
         modalPaypalBtn.innerText = `🛍️ Vai alla lista su Idealbimbo`;
         modalPaypalBtn.style.background = "#e53e3e"; 
-        paypalWarning.style.display = "none"; // Nasconde l'avviso su Idealbimbo
+        ibanContainer.style.display = "none";
       } else {
-        modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
+        // Se è un regalo normale: mostra PayPal e mostra il box dell'IBAN
+        modalPaypalBtn.href = `https://www.paypal.com/myaccount/transfer/send/external/pay-preview?recipient=${PAYPAL_EMAIL}&amount=${exp.price}&currencyCode=EUR`;
         modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
         modalPaypalBtn.style.background = "#0070ba"; 
-        paypalWarning.style.display = "block"; // MOSTRA l'avviso per i pagamenti PayPal
+        
+        // Aggiorna e mostra la causale dell'IBAN
+        ibanCausaleExp.innerText = exp.title;
+        ibanContainer.style.display = "block";
       }
 
       backdrop.style.display = "flex";
