@@ -354,6 +354,16 @@
         image: "supporto.jpg",
         snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.",
         description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!"
+      },
+      {
+        id: 11,
+        title: "Per un regalo tradizionale - IDEALBIMBO",
+        price: "Variabile", // Mostrerà questa scritta invece del prezzo
+        image: "lista.jpg",
+        snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.",
+        description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).",
+        isExternalLink: true,
+        urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp"
       }
     ];
 
@@ -369,10 +379,14 @@
       const card = document.createElement("div");
       card.className = "card";
       card.onclick = () => openModal(exp);
+      
+      // Controllo se il prezzo è un numero o la parola "Variabile" per gestire il simbolo €
+      const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
+      
       card.innerHTML = `
         <div class="card-img-wrapper">
           <img src="${exp.image}" alt="${exp.title}" loading="lazy">
-          <span class="price-tag">${exp.price}€</span>
+          <span class="price-tag">${priceText}</span>
         </div>
         <div class="card-body">
           <h3 class="card-title">${exp.title}</h3>
@@ -386,12 +400,22 @@
     function openModal(exp) {
       modalImg.src = exp.image;
       modalTitle.innerText = exp.title;
-      modalPrice.innerText = exp.price + "€";
       modalDesc.innerText = exp.description;
       
-      // Link diretto a PayPal con importo preimpostato
-      modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
-      modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
+      const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
+      modalPrice.innerText = priceText;
+      
+      // Se è un link esterno (come Idealbimbo)
+      if (exp.isExternalLink) {
+        modalPaypalBtn.href = exp.urlTarget;
+        modalPaypalBtn.innerText = `🛍️ Vai alla lista su Idealbimbo`;
+        modalPaypalBtn.style.background = "#e53e3e"; // Colore diverso per distinguerlo da PayPal (opzionale)
+      } else {
+        // Regalo classico con PayPal
+        modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
+        modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
+        modalPaypalBtn.style.background = "#0070ba"; // Colore blu standard di PayPal
+      }
 
       backdrop.style.display = "flex";
     }
