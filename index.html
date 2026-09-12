@@ -39,7 +39,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3.5rem;
     }
 
     header h1 {
@@ -56,14 +56,14 @@
       margin: 0 auto;
     }
 
-    /* --- STILE DEL COUNTDOWN DELICATO --- */
+    /* --- STILE DEL COUNTDOWN DELICATO (Ora a fondo pagina) --- */
     .countdown-container {
       background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
       border: 1px solid #ffccd5;
       border-radius: 20px;
       padding: 1.5rem;
       max-width: 550px;
-      margin: 0 auto 3.5rem auto;
+      margin: 4rem auto 0 auto; /* Aggiunto margine sopra per distanziarlo dalle card */
       text-align: center;
       box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
     }
@@ -336,7 +336,10 @@
       <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
-    <!-- BOX COUNTDOWN AGGIORNATO QUI -->
+    <!-- GRIGLIA DEI REGALI -->
+    <div class="grid" id="grid"></div>
+
+    <!-- BOX COUNTDOWN SPOSTATO A FONDO PAGINA -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
       <div class="countdown" id="countdown-timer">
@@ -359,7 +362,6 @@
       </div>
     </div>
 
-    <div class="grid" id="grid"></div>
   </div>
 
   <!-- Modale Dettagli -->
@@ -383,8 +385,8 @@
   </div>
 
   <script>
-    // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME
-    const PAYPAL_USERNAME = "TUONOME"; 
+    // 💡 USERNAME PAYPAL.ME
+    const PAYPAL_USERNAME = "CamilllaBrogioni"; 
 
     // --- SCRIPT PER IL COUNTDOWN (8 DICEMBRE 2026) ---
     const targetDate = new Date("December 8, 2026 00:00:00").getTime();
@@ -393,7 +395,6 @@
       const now = new Date().getTime();
       const distance = targetDate - now;
 
-      // Se la data è passata, mostra un messaggio speciale
       if (distance < 0) {
         clearInterval(countdownInterval);
         document.getElementById("countdown-timer").innerHTML = "<h4 style='color:var(--primary); font-size:1.5rem; margin:1rem 0;'>🎉 Benvenuta al mondo Olivia! 🌸</h4>";
@@ -416,7 +417,7 @@
       {
         id: 1,
         title: "Il primo viaggio in aereo di Olivia",
-        price: 50,
+        price: 50, // Prezzo aggiornato
         image: "volo.jpg",
         snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.",
         description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole."
@@ -440,7 +441,7 @@
       {
         id: 4,
         title: "Il primo corso di nuoto di Olivia",
-        price: 50,
+        price: 50, // Prezzo aggiornato
         image: "piscina.jpg",
         snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.",
         description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati."
@@ -448,7 +449,7 @@
       {
         id: 5,
         title: "Prime lezioni di surf per Olivia a Fuerteventura",
-        price: 50,
+        price: 50, // Prezzo aggiornato
         image: "surf.jpg",
         snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.",
         description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura."
@@ -464,7 +465,7 @@
       {
         id: 7,
         title: "Primo viaggio e Baby dance a Ibiza per Olivia",
-        price: 50,
+        price: 50, // Prezzo aggiornato
         image: "ibiza.jpg",
         snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.",
         description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!"
