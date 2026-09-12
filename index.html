@@ -163,6 +163,9 @@
       overflow: hidden;
       position: relative;
       animation: popIn 0.25s ease-out;
+      max-height: 90vh; /* Evita che esca dallo schermo se l'immagine è alta */
+      display: flex;
+      flex-direction: column;
     }
 
     @keyframes popIn {
@@ -174,7 +177,7 @@
       position: absolute;
       top: 15px;
       right: 15px;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       color: white;
       border: none;
       width: 34px;
@@ -186,16 +189,38 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(0,0,0,0.9);
+    }
+
+    /* CSS AGGIORNATO PER L'IMMAGINE INTERA E CLICCABILE */
+    #modalImgLink {
+      display: block;
+      background-color: #f1f5f9; /* Sfondo chiaro per riempire eventuali spazi vuoti */
+      text-align: center;
+      cursor: zoom-in; /* Mostra l'icona della lente di ingrandimento */
     }
 
     .modal-img {
       width: 100%;
-      height: 250px;
-      object-fit: cover;
+      height: auto;
+      max-height: 40vh; /* Altezza massima dinamica per adattarsi allo schermo */
+      object-fit: contain; /* Non taglia l'immagine, la ridimensiona mostrandola tutta */
+      display: block;
+      margin: 0 auto;
+      transition: opacity 0.2s;
+    }
+
+    .modal-img:hover {
+      opacity: 0.85; /* Effetto visivo al passaggio del mouse */
     }
 
     .modal-content {
       padding: 1.75rem;
+      overflow-y: auto; /* Permette di scorrere il testo se è troppo lungo */
     }
 
     .modal-header {
@@ -258,7 +283,12 @@
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal()">✕</button>
-      <img id="modalImg" class="modal-img" src="" alt="Esperienza">
+      
+      <!-- NUOVO WRAPPER: L'immagine ora è dentro un link cliccabile -->
+      <a id="modalImgLink" href="" target="_blank" title="Clicca per ingrandire l'immagine">
+        <img id="modalImg" class="modal-img" src="" alt="Esperienza">
+      </a>
+      
       <div class="modal-content">
         <div class="modal-header">
           <h2 id="modalTitle"></h2>
@@ -270,9 +300,9 @@
     </div>
   </div>
 
- <script>
-    // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME (es. 'marioverdi' o 'olivia2026')
-    const PAYPAL_USERNAME = "TUONOME";
+  <script>
+    // 💡 INSERISCI QUI IL TUO USERNAME PAYPAL.ME
+    const PAYPAL_USERNAME = "TUONOME"; 
 
     const experiences = [
       {
@@ -358,7 +388,7 @@
       {
         id: 11,
         title: "Per un regalo tradizionale - IDEALBIMBO",
-        price: "Variabile", // Mostrerà questa scritta invece del prezzo
+        price: "Variabile", 
         image: "lista.jpg",
         snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.",
         description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).",
@@ -370,6 +400,7 @@
     const grid = document.getElementById("grid");
     const backdrop = document.getElementById("modalBackdrop");
     const modalImg = document.getElementById("modalImg");
+    const modalImgLink = document.getElementById("modalImgLink"); // Aggiunto link immagine
     const modalTitle = document.getElementById("modalTitle");
     const modalPrice = document.getElementById("modalPrice");
     const modalDesc = document.getElementById("modalDesc");
@@ -380,7 +411,6 @@
       card.className = "card";
       card.onclick = () => openModal(exp);
       
-      // Controllo se il prezzo è un numero o la parola "Variabile" per gestire il simbolo €
       const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
       
       card.innerHTML = `
@@ -399,22 +429,22 @@
 
     function openModal(exp) {
       modalImg.src = exp.image;
+      modalImgLink.href = exp.image; // Questo fa sì che il clic sull'immagine apra il file originale
+      
       modalTitle.innerText = exp.title;
       modalDesc.innerText = exp.description;
       
       const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
       modalPrice.innerText = priceText;
       
-      // Se è un link esterno (come Idealbimbo)
       if (exp.isExternalLink) {
         modalPaypalBtn.href = exp.urlTarget;
         modalPaypalBtn.innerText = `🛍️ Vai alla lista su Idealbimbo`;
-        modalPaypalBtn.style.background = "#e53e3e"; // Colore diverso per distinguerlo da PayPal (opzionale)
+        modalPaypalBtn.style.background = "#e53e3e"; 
       } else {
-        // Regalo classico con PayPal
         modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
         modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
-        modalPaypalBtn.style.background = "#0070ba"; // Colore blu standard di PayPal
+        modalPaypalBtn.style.background = "#0070ba"; 
       }
 
       backdrop.style.display = "flex";
