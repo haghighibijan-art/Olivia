@@ -59,7 +59,7 @@
 
     /* --- CATEGORIE (SENZA TENDINA) E SPAZIATURE --- */
     .category-section {
-      margin-bottom: 5rem; /* Maggiore spaziatura tra categorie */
+      margin-bottom: 5rem;
     }
 
     .category-title {
@@ -81,7 +81,6 @@
     /* --- GRIGLIA --- */
     .grid {
       display: grid;
-      /* auto-fill impedisce all'oggetto singolo di allargarsi */
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
       gap: 2rem;
     }
@@ -96,7 +95,7 @@
       display: flex;
       flex-direction: column;
       border: 1px solid #f1f5f9;
-      position: relative; /* Per posizionare la targhetta */
+      position: relative; 
     }
 
     .card:hover {
@@ -124,7 +123,7 @@
       font-weight: 800;
       box-shadow: 0 4px 10px rgba(255, 71, 126, 0.3);
       z-index: 10;
-      display: none; /* Visibile solo se ha la classe in-cart */
+      display: none; 
     }
     .card.in-cart .card-badge-cart {
       display: block;
@@ -393,7 +392,7 @@
       padding: 1.2rem;
       border-radius: 12px;
       text-align: right;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
       font-size: 1.2rem;
     }
     .cart-total-box strong {
@@ -465,7 +464,8 @@
   <div class="container">
     <header>
       <h1>Le Future Avventure di Olivia 🍼✨</h1>
-      <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
+      <!-- Errore corretto qui sotto! -->
+      <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
     <!-- CATALOGO -->
@@ -518,7 +518,7 @@
         </div>
 
         <!-- TASTO PAYPAL GENERALE -->
-        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga con PayPal</a>
+        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga il totale con PayPal</a>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
         <div class="iban-container">
@@ -533,7 +533,7 @@
   </div>
 
   <script>
-    // 💡 EMAIL DEL CONTO PAYPAL
+    // EMAIL DEL CONTO PAYPAL
     const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
 
     // --- DATI ESPERIENZE E CATEGORIE ---
@@ -614,7 +614,6 @@
         catalogContainer.appendChild(catSection);
       });
 
-      // Applica la classe in-cart se ce ne sono già (es. dopo aver rimosso qualcosa dal carrello)
       updateCartUI(); 
     }
 
@@ -654,7 +653,6 @@
         btn.innerText = "🛍️ Vai alla lista su Idealbimbo";
         modalActions.appendChild(btn);
       } else {
-        // Controlla quante volte è già stato aggiunto
         const occurrencesInCart = cart.filter(item => item.id === exp.id).length;
         
         if (occurrencesInCart > 0) {
@@ -670,9 +668,8 @@
         
         btn.onclick = () => {
           cart.push(exp);
-          updateCartUI(); // Aggiorna graficamente la card dietro
+          updateCartUI(); 
           
-          // Cambia l'interno della modale per guidare l'utente alla doppia scelta
           modalActions.innerHTML = `
             <div style="text-align: center; color: var(--cart-color); font-weight: bold; margin-bottom: 1.5rem; font-size: 1.15rem;">
               ✓ Aggiunto al carrello!
@@ -705,7 +702,6 @@
     }
 
     function updateCartUI() {
-      // Aggiorna il numerino nel bottone flottante
       cartBadge.innerText = cart.length;
       if (cart.length > 0) {
         cartFab.classList.remove("hidden");
@@ -713,7 +709,6 @@
         cartFab.classList.add("hidden");
       }
 
-      // Aggiorna le classi per evidenziare le card nella griglia
       experiences.forEach(exp => {
         const cardEl = document.getElementById(`card-exp-${exp.id}`);
         if (cardEl) {
@@ -726,7 +721,6 @@
         }
       });
 
-      // Ricostruisci il riepilogo nella Modale del Carrello
       cartItemsList.innerHTML = "";
       let total = 0;
       let titles = [];
@@ -749,7 +743,7 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK PAYPAL AGGIORNATO (Link Universale Diretto)
+      // LINK PAYPAL (Usiamo il formato esteso standard per compatibilità universale e zero commissioni in partenza)
       cartPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${total}&item_name=Regalo+Nascita+Olivia`;
       
       let causaleStr = titles.join(" + ");
@@ -774,8 +768,9 @@
       if (e.target === cartModalBackdrop) closeCartModal();
     });
 
-    // --- COUNTDOWN LOGIC ---
-    const targetDate = new Date("December 8, 2026 00:00:00").getTime();
+    // --- COUNTDOWN LOGIC (Corretto con formato ISO per massima compatibilità Safari/iOS) ---
+    const targetDate = new Date("2026-12-08T00:00:00").getTime();
+    
     const countdownInterval = setInterval(function() {
       const now = new Date().getTime();
       const distance = targetDate - now;
