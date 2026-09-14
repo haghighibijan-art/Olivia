@@ -16,7 +16,7 @@
       --text: #2d3748;
       --text-muted: #718096;
       --accent: #fcd34d;
-      --cart-color: #ff477e; /* Nuovo colore rosa accesso per il carrello */
+      --cart-color: #ff477e;
     }
 
     * {
@@ -30,7 +30,7 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 5rem 1rem 4rem; /* Spazio in alto per non coprire il titolo col carrello */
+      padding: 5rem 1rem 4rem;
     }
 
     .container {
@@ -104,7 +104,7 @@
 
     .category-content {
       padding: 0 1.8rem 1.8rem 1.8rem;
-      display: none; /* Chiuse di default */
+      display: none;
     }
 
     .category-content.active {
@@ -340,7 +340,7 @@
       background: #005ea6;
     }
 
-    /* --- CARRELLO FLOTTANTE (SPOSTATO IN ALTO A DESTRA E COLORATO) --- */
+    /* --- CARRELLO FLOTTANTE --- */
     .cart-fab {
       position: fixed;
       top: 15px;
@@ -549,8 +549,8 @@
   </div>
 
   <script>
-    // 💡 NOME UTENTE PAYPAL.ME
-    const PAYPAL_USERNAME = "OliviaHTB"; 
+    // INSERISCI L'EMAIL ASSOCIATA AL TUO CONTO PAYPAL
+    const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
 
     // --- DATI ESPERIENZE E CATEGORIE ---
     const experiences = [
@@ -743,7 +743,9 @@
       });
 
       cartTotalSum.innerText = total + "€";
-      cartPaypalBtn.href = `https://www.paypal.com/paypalme/${PAYPAL_USERNAME}/${total}`;
+      
+      // LINK AGGIORNATO (Forza il pagamento in formato donazione per non essere bloccato sulle app mobile)
+      cartPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${total}&item_name=Regalo+Nascita+Olivia`;
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
