@@ -511,7 +511,8 @@
   <div class="container">
     <header>
       <h1>Le Future Avventure di Olivia 🍼✨</h1>
-      <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
+      <!-- Testo aggiornato -->
+      <p>Cari Amici e Parenti, abbiamo già quasi tutto il necessario per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
     <!-- CATALOGO -->
@@ -575,7 +576,7 @@
           Seleziona sempre <b>"Invia a un amico"</b> su PayPal 🌸
         </div>
 
-        <!-- TASTI DI CHECKOUT (WhatsApp prima, PayPal dopo) -->
+        <!-- TASTI DI CHECKOUT -->
         <button onclick="sendWhatsApp()" class="btn-wa">💬 1. Avvisaci su WhatsApp</button>
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 2. Paga con PayPal</a>
 
@@ -583,7 +584,7 @@
         <div class="iban-container">
           <h4>🏦 Oppure tramite Bonifico Bancario</h4>
           <div class="iban-detail"><strong>IBAN:</strong> IT11R0538702801000004415517</div>
-          <div class="iban-detail"><strong>Intestato a:</strong> haghighi bijan e brogioni camilla</div>
+          <div class="iban-detail"><strong>Intestato a:</strong> Haghighi Bijan e Brogioni Camilla</div>
           <div class="iban-detail"><strong>Causale:</strong> Regalo nascita Olivia: <span id="cartIbanCausale"></span></div>
         </div>
         
@@ -594,7 +595,7 @@
   <script>
     // 💡 COSTANTI E DATI
     const PAYPAL_USERNAME = "OliviaHTB"; 
-    const WHATSAPP_NUMBER = "393515650000"; // Tuo numero aggiornato
+    const WHATSAPP_NUMBER = "393515650000"; // Tuo numero WhatsApp corretto
     
     const experiences = [
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
@@ -797,7 +798,6 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // Imposta il Link PayPal
       cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}`;
       cartPaypalBtn.innerText = `🎁 2. Apri PayPal (Digita ${total}€)`;
       
@@ -816,7 +816,7 @@
       cartModalBackdrop.style.display = "none";
     }
 
-    // 💡 INVIO MESSAGGIO WHATSAPP (Senza Prezzi)
+    // 💡 INVIO MESSAGGIO WHATSAPP
     function sendWhatsApp() {
       const name = gifterNameInput.value.trim();
       if(!name) {
