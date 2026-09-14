@@ -510,8 +510,7 @@
 
   <div class="container">
     <header>
-      <h1>🍼Le Future Avventure di Olivia✨</h1>
-      <!-- Testo aggiornato -->
+      <h1>Le Future Avventure di Olivia 🍼✨</h1>
       <p>Cari Amici e Parenti, abbiamo già quasi tutto il necessario per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
@@ -573,7 +572,7 @@
 
         <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI -->
         <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
-          Seleziona sempre <b>"Invia a un amico"</b> su PayPal 🌸
+          Seleziona sempre l'opzione <b>"Invia a un amico"</b> su PayPal per evitare commissioni 🌸
         </div>
 
         <!-- TASTI DI CHECKOUT -->
@@ -595,7 +594,7 @@
   <script>
     // 💡 COSTANTI E DATI
     const PAYPAL_USERNAME = "OliviaHTB"; 
-    const WHATSAPP_NUMBER = "393515650000"; // Tuo numero WhatsApp corretto
+    const WHATSAPP_NUMBER = "393515650000"; 
     
     const experiences = [
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
@@ -798,8 +797,9 @@
 
       cartTotalSum.innerText = total + "€";
       
-      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}`;
-      cartPaypalBtn.innerText = `🎁 2. Apri PayPal (Digita ${total}€)`;
+      // LINK PAYPAL PRECOMPILATO
+      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}`;
+      cartPaypalBtn.innerText = `🎁 2. Paga ${total}€ con PayPal`;
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
@@ -816,7 +816,7 @@
       cartModalBackdrop.style.display = "none";
     }
 
-    // 💡 INVIO MESSAGGIO WHATSAPP
+    // 💡 INVIO MESSAGGIO WHATSAPP (Senza Prezzi)
     function sendWhatsApp() {
       const name = gifterNameInput.value.trim();
       if(!name) {
