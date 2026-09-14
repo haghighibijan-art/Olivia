@@ -56,7 +56,6 @@
       margin: 0 auto;
     }
 
-    /* --- STILE DEL COUNTDOWN A FONDO PAGINA --- */
     .countdown-container {
       background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
       border: 1px solid #ffccd5;
@@ -115,7 +114,6 @@
       .time-box span { font-size: 1.5rem; }
       .time-box small { font-size: 0.7rem; }
     }
-    /* ------------------------------------ */
 
     .grid {
       display: grid;
@@ -327,7 +325,7 @@
       background: #005ea6;
     }
 
-    /* NUOVO STILE BOX IBAN */
+    /* BOX IBAN */
     .iban-container {
       background-color: #f8fafc;
       border: 1px dashed #cbd5e1;
@@ -336,7 +334,7 @@
       margin-top: 1.2rem;
       font-size: 0.9rem;
       color: var(--text);
-      display: none; /* Nascosto di default, si attiva col JS */
+      display: none; 
     }
 
     .iban-container h4 {
@@ -369,7 +367,7 @@
     <!-- GRIGLIA DEI REGALI -->
     <div class="grid" id="grid"></div>
 
-    <!-- BOX COUNTDOWN SPOSTATO A FONDO PAGINA -->
+    <!-- BOX COUNTDOWN -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
       <div class="countdown" id="countdown-timer">
@@ -409,6 +407,7 @@
         </div>
         <p class="modal-desc" id="modalDesc"></p>
 
+        <!-- TASTO PAYPAL -->
         <a id="modalPaypalBtn" class="btn-buy" target="_blank" rel="noopener">🎁 Regala con PayPal</a>
 
         <!-- BOX BONIFICO BANCARIO -->
@@ -424,12 +423,11 @@
   </div>
 
   <script>
-    // 💡 EMAIL PAYPAL
+    // 💡 EMAIL PAYPAL (Usata per il pre-compilamento nativo)
     const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
 
-    // --- SCRIPT PER IL COUNTDOWN (8 DICEMBRE 2026) ---
+    // Countdown
     const targetDate = new Date("December 8, 2026 00:00:00").getTime();
-
     const countdownInterval = setInterval(function() {
       const now = new Date().getTime();
       const distance = targetDate - now;
@@ -450,107 +448,20 @@
       document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
       document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
     }, 1000);
-    // ------------------------------------------------
 
     const experiences = [
-      {
-        id: 1,
-        title: "Il primo viaggio in aereo di Olivia",
-        price: 50,
-        image: "volo.jpg",
-        snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.",
-        description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole."
-      },
-      {
-        id: 2,
-        title: "La prima volta a Gardaland di Olivia",
-        price: 50,
-        image: "gardaland.jpg",
-        snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.",
-        description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe."
-      },
-      {
-        id: 3,
-        title: "La prima volta a Collodi di Olivia",
-        price: 30,
-        image: "collodi.jpg",
-        snippet: "Alla scoperta del Parco di Pinocchio e delle meraviglie toscane.",
-        description: "Visita al Parco di Pinocchio a Collodi: una passeggiata tra sculture all'aperto, teatrini di marionette e sentieri incantati nella natura."
-      },
-      {
-        id: 4,
-        title: "Il primo corso di nuoto di Olivia",
-        price: 50,
-        image: "piscina.jpg",
-        snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.",
-        description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati."
-      },
-      {
-        id: 5,
-        title: "Prime lezioni di surf per Olivia a Fuerteventura",
-        price: 50,
-        image: "surf.jpg",
-        snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.",
-        description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura."
-      },
-      {
-        id: 6,
-        title: "Prima visita di Olivia allo Zoo di Pistoia",
-        price: 30,
-        image: "zoo.jpg",
-        snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.",
-        description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale."
-      },
-      {
-        id: 7,
-        title: "Primo viaggio e Baby dance a Ibiza per Olivia",
-        price: 50,
-        image: "ibiza.jpg",
-        snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.",
-        description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!"
-      },
-      {
-        id: 8,
-        title: "Prime lezioni di sci all'Abetone",
-        price: 50,
-        image: "abetone.jpg",
-        snippet: "Pupazzi di neve, slittino e i primi passi con gli sciettini sulla neve fresca.",
-        description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio."
-      },
-      {
-        id: 9,
-        title: "La prima volta di Olivia all'Acquario di Genova",
-        price: 40,
-        image: "acquario.jpg",
-        snippet: "Tra delfini, foche e squali nei fondali marini più affascinanti.",
-        description: "Un viaggio magico sotto il mare tra le vasche giganti dell'Acquario di Genova: per ammirare da vicino i delfini, i pinguini e le creature degli abissi con gli occhi pieni di stupore!"
-      },
-      {
-        id: 10,
-        title: "Supporto psicologico e aperitivi per Babbo e Mamma",
-        price: 10,
-        image: "supporto.jpg",
-        snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.",
-        description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!"
-      },
-      {
-        id: 11,
-        title: "Per un regalo tradizionale - IDEALBIMBO",
-        price: "Variabile", 
-        image: "lista.jpg",
-        snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.",
-        description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).",
-        isExternalLink: true,
-        urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp"
-      },
-      {
-        id: 12,
-        title: "La prima lezione di CrossFit di Olivia",
-        price: 30,
-        image: "crossfit.jpg",
-        snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.",
-        description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!"
-      }
+      { id: 1, title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
+      { id: 2, title: "La prima volta a Gardaland di Olivia", price: 50, image: "gardaland.jpg", snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.", description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe." },
+      { id: 3, title: "La prima volta a Collodi di Olivia", price: 30, image: "collodi.jpg", snippet: "Alla scoperta del Parco di Pinocchio e delle meraviglie toscane.", description: "Visita al Parco di Pinocchio a Collodi: una passeggiata tra sculture all'aperto, teatrini di marionette e sentieri incantati nella natura." },
+      { id: 4, title: "Il primo corso di nuoto di Olivia", price: 50, image: "piscina.jpg", snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.", description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati." },
+      { id: 5, title: "Prime lezioni di surf per Olivia a Fuerteventura", price: 50, image: "surf.jpg", snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.", description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura." },
+      { id: 6, title: "Prima visita di Olivia allo Zoo di Pistoia", price: 30, image: "zoo.jpg", snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.", description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale." },
+      { id: 7, title: "Primo viaggio e Baby dance a Ibiza per Olivia", price: 50, image: "ibiza.jpg", snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.", description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!" },
+      { id: 8, title: "Prime lezioni di sci all'Abetone", price: 50, image: "abetone.jpg", snippet: "Pupazzi di neve, slittino e i primi passi con gli sciettini sulla neve fresca.", description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio." },
+      { id: 9, title: "La prima volta di Olivia all'Acquario di Genova", price: 40, image: "acquario.jpg", snippet: "Tra delfini, foche e squali nei fondali marini più affascinanti.", description: "Un viaggio magico sotto il mare tra le vasche giganti dell'Acquario di Genova: per ammirare da vicino i delfini, i pinguini e le creature degli abissi con gli occhi pieni di stupore!" },
+      { id: 10, title: "Supporto psicologico e aperitivi per Babbo e Mamma", price: 10, image: "supporto.jpg", snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.", description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!" },
+      { id: 11, title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" },
+      { id: 12, title: "La prima lezione di CrossFit di Olivia", price: 30, image: "crossfit.jpg", snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.", description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!" }
     ];
 
     const grid = document.getElementById("grid");
@@ -561,6 +472,8 @@
     const modalPrice = document.getElementById("modalPrice");
     const modalDesc = document.getElementById("modalDesc");
     const modalPaypalBtn = document.getElementById("modalPaypalBtn");
+    
+    // Elementi IBAN
     const ibanContainer = document.getElementById("ibanContainer");
     const ibanCausaleExp = document.getElementById("ibanCausaleExp");
 
@@ -602,8 +515,8 @@
         modalPaypalBtn.style.background = "#e53e3e"; 
         ibanContainer.style.display = "none";
       } else {
-        // Se è un regalo normale: mostra PayPal e mostra il box dell'IBAN
-        modalPaypalBtn.href = `https://www.paypal.com/myaccount/transfer/send/external/pay-preview?recipient=${PAYPAL_EMAIL}&amount=${exp.price}&currencyCode=EUR`;
+        // Usa la struttura url standard per l'invio denaro di PayPal:
+        modalPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_EMAIL}&amount=${exp.price}&currency_code=EUR&item_name=Regalo+Nascita+Olivia+-+${encodeURIComponent(exp.title)}&no_shipping=1&no_note=1`;
         modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
         modalPaypalBtn.style.background = "#0070ba"; 
         
