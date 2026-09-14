@@ -574,7 +574,7 @@
         <button onclick="sendWhatsApp()" class="btn-wa">💬 1. Avvisaci su WhatsApp</button>
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 2. Paga con PayPal</a>
 
-        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI (SPOSTATO SOTTO IL PULSANTE PAYPAL) -->
+        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI -->
         <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 0.6rem; margin-bottom: 0.5rem;">
           Seleziona sempre l'opzione <b>"Invia a un amico"</b> su PayPal per evitare commissioni 🌸
         </div>
@@ -797,8 +797,8 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK PAYPAL PRECOMPILATO
-      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}`;
+      // LINK PAYPAL CON FORMATO "EUR" (Previene l'errore del profilo vuoto su app mobile)
+      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}EUR`;
       cartPaypalBtn.innerText = `🎁 2. Paga ${total}€ con PayPal`;
       
       let causaleStr = titles.join(" + ");
