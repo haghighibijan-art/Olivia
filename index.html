@@ -29,7 +29,7 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 2rem 1rem 4rem;
+      padding: 2rem 1rem 6rem; /* Margine inferiore per il bottone carrello */
     }
 
     .container {
@@ -56,65 +56,20 @@
       margin: 0 auto;
     }
 
-    .countdown-container {
-      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
-      border: 1px solid #ffccd5;
-      border-radius: 20px;
-      padding: 1.5rem;
-      max-width: 550px;
-      margin: 4rem auto 0 auto;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
+    /* --- CATEGORIE --- */
+    .category-section {
+      margin-bottom: 4rem;
     }
-
-    .countdown-container h3 {
+    .category-title {
+      font-size: 1.8rem;
       color: var(--primary);
-      font-size: 1.3rem;
-      margin-bottom: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-    }
-
-    .time-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #ffffff;
-      padding: 0.8rem 1rem;
-      border-radius: 15px;
-      min-width: 75px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    }
-
-    .time-box span {
-      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px dashed #ffccd5;
+      padding-bottom: 0.5rem;
       font-weight: 800;
-      color: var(--text);
-      line-height: 1;
     }
 
-    .time-box small {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-
-    @media (max-width: 500px) {
-      .countdown { gap: 0.5rem; }
-      .time-box { min-width: 65px; padding: 0.6rem; }
-      .time-box span { font-size: 1.5rem; }
-      .time-box small { font-size: 0.7rem; }
-    }
-
+    /* --- GRIGLIA --- */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -201,7 +156,7 @@
       color: #fff;
     }
 
-    /* Modale */
+    /* --- MODALI (Condivise) --- */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -269,11 +224,6 @@
       object-fit: contain;
       display: block;
       margin: 0 auto;
-      transition: opacity 0.2s;
-    }
-
-    .modal-img:hover {
-      opacity: 0.85;
     }
 
     .modal-content {
@@ -307,10 +257,9 @@
       margin-bottom: 1.5rem;
     }
 
-    .btn-buy {
+    .btn-buy, .btn-add-cart {
       display: block;
       width: 100%;
-      background: #0070ba;
       color: #fff;
       text-decoration: none;
       font-weight: 700;
@@ -318,14 +267,103 @@
       padding: 0.9rem 1.2rem;
       border-radius: 14px;
       font-size: 1.05rem;
+      border: none;
+      cursor: pointer;
       transition: background 0.2s;
     }
 
-    .btn-buy:hover {
+    .btn-add-cart {
+      background: var(--primary);
+    }
+    .btn-add-cart:hover {
+      background: var(--primary-hover);
+    }
+    
+    .btn-paypal {
+      background: #0070ba;
+    }
+    .btn-paypal:hover {
       background: #005ea6;
     }
 
-    /* BOX IBAN */
+    /* --- CARRELLO FLOTTANTE --- */
+    .cart-fab {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #0070ba;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      box-shadow: 0 8px 25px rgba(0, 112, 186, 0.4);
+      cursor: pointer;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: transform 0.2s;
+      border: none;
+    }
+    .cart-fab:hover {
+      transform: scale(1.05);
+    }
+    .cart-badge {
+      background: white;
+      color: #0070ba;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    .cart-fab.hidden {
+      display: none;
+    }
+
+    /* --- MODALE CARRELLO --- */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item-info h4 {
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    .cart-item-info span {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .cart-remove {
+      background: #fee2e2;
+      color: #ef4444;
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .cart-total-box {
+      background: #f8fafc;
+      padding: 1.2rem;
+      border-radius: 12px;
+      text-align: right;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    .cart-total-box strong {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    /* --- IBAN --- */
     .iban-container {
       background-color: #f8fafc;
       border: 1px dashed #cbd5e1;
@@ -334,9 +372,7 @@
       margin-top: 1.2rem;
       font-size: 0.9rem;
       color: var(--text);
-      display: none; 
     }
-
     .iban-container h4 {
       font-size: 1.05rem;
       margin-bottom: 0.8rem;
@@ -345,15 +381,40 @@
       align-items: center;
       gap: 0.5rem;
     }
-
     .iban-detail {
       margin-bottom: 0.4rem;
       line-height: 1.5;
     }
-
     .iban-detail strong {
       color: var(--text);
     }
+
+    /* --- COUNTDOWN --- */
+    .countdown-container {
+      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
+      border: 1px solid #ffccd5;
+      border-radius: 20px;
+      padding: 1.5rem;
+      max-width: 550px;
+      margin: 4rem auto 0 auto;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
+    }
+    .countdown-container h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .countdown { display: flex; justify-content: center; gap: 1.2rem; }
+    .time-box {
+      display: flex; flex-direction: column; align-items: center;
+      background: #ffffff; padding: 0.8rem 1rem; border-radius: 15px;
+      min-width: 75px; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+    .time-box span { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .time-box small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; text-transform: uppercase; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -364,58 +425,70 @@
       <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
-    <!-- GRIGLIA DEI REGALI -->
-    <div class="grid" id="grid"></div>
+    <!-- CATALOGO (Viene riempito dinamicamente dal Javascript) -->
+    <div id="catalog"></div>
 
     <!-- BOX COUNTDOWN -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
       <div class="countdown" id="countdown-timer">
-        <div class="time-box">
-          <span id="days">00</span>
-          <small>Giorni</small>
-        </div>
-        <div class="time-box">
-          <span id="hours">00</span>
-          <small>Ore</small>
-        </div>
-        <div class="time-box">
-          <span id="minutes">00</span>
-          <small>Minuti</small>
-        </div>
-        <div class="time-box">
-          <span id="seconds">00</span>
-          <small>Secondi</small>
-        </div>
+        <div class="time-box"><span id="days">00</span><small>Giorni</small></div>
+        <div class="time-box"><span id="hours">00</span><small>Ore</small></div>
+        <div class="time-box"><span id="minutes">00</span><small>Minuti</small></div>
+        <div class="time-box"><span id="seconds">00</span><small>Secondi</small></div>
       </div>
     </div>
   </div>
 
-  <!-- Modale Dettagli -->
-  <div class="modal-backdrop" id="modalBackdrop">
+  <!-- BOTTONE CARRELLO FLOTTANTE -->
+  <button id="cartFab" class="cart-fab hidden" onclick="openCartModal()">
+    🛒 Carrello <span id="cartBadge" class="cart-badge">0</span>
+  </button>
+
+  <!-- MODALE DETTAGLIO ESPERIENZA -->
+  <div class="modal-backdrop" id="itemModalBackdrop">
     <div class="modal-box">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      
+      <button class="modal-close" onclick="closeItemModal()">✕</button>
       <a id="modalImgLink" href="" target="_blank" title="Clicca per ingrandire l'immagine">
         <img id="modalImg" class="modal-img" src="" alt="Esperienza">
       </a>
-      
       <div class="modal-content">
         <div class="modal-header">
           <h2 id="modalTitle"></h2>
           <span class="modal-price" id="modalPrice"></span>
         </div>
         <p class="modal-desc" id="modalDesc"></p>
+        
+        <!-- Pulsanti dinamici (Aggiungi al carrello OPPURE Vai al sito) -->
+        <div id="modalActions"></div>
+      </div>
+    </div>
+  </div>
 
-        <!-- TASTO PAYPAL -->
-        <a id="modalPaypalBtn" class="btn-buy" target="_blank" rel="noopener">🎁 Regala con PayPal</a>
+  <!-- MODALE CARRELLO E CHECKOUT -->
+  <div class="modal-backdrop" id="cartModalBackdrop">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeCartModal()">✕</button>
+      <div class="modal-content" style="padding-top: 3rem;">
+        <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.8rem;">Il tuo Regalo 🎁</h2>
+        
+        <div id="cartItemsList">
+          <!-- Lista riempita dinamicamente -->
+        </div>
 
-        <!-- BOX BONIFICO BANCARIO -->
-        <div id="ibanContainer" class="iban-container">
+        <div class="cart-total-box">
+          Totale: <strong id="cartTotalSum">0€</strong>
+        </div>
+
+        <!-- TASTO PAYPAL GENERALE -->
+        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga il totale con PayPal</a>
+
+        <!-- BOX BONIFICO BANCARIO GENERALE -->
+        <div class="iban-container">
           <h4>🏦 Oppure tramite Bonifico Bancario</h4>
           <div class="iban-detail"><strong>IBAN:</strong> IT11R0538702801000004415517</div>
           <div class="iban-detail"><strong>Intestato a:</strong> haghighi bijan e brogioni camilla</div>
-          <div class="iban-detail"><strong>Causale:</strong> Regalo nascita Olivia, <span id="ibanCausaleExp"></span></div>
+          <div class="iban-detail"><strong>Causale:</strong> Regalo nascita Olivia: <span id="cartIbanCausale"></span></div>
         </div>
         
       </div>
@@ -426,7 +499,219 @@
     // 💡 NOME UTENTE PAYPAL.ME
     const PAYPAL_USERNAME = "OliviaHTB"; 
 
-    // Countdown
+    // --- DATI ESPERIENZE E CATEGORIE ---
+    const experiences = [
+      { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
+      { id: 7, category: "Viaggi", title: "Primo viaggio e Baby dance a Ibiza per Olivia", price: 50, image: "ibiza.jpg", snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.", description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!" },
+      
+      { id: 2, category: "Visite e Musei", title: "La prima volta a Gardaland di Olivia", price: 50, image: "gardaland.jpg", snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.", description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe." },
+      { id: 3, category: "Visite e Musei", title: "La prima volta a Collodi di Olivia", price: 30, image: "collodi.jpg", snippet: "Alla scoperta del Parco di Pinocchio e delle meraviglie toscane.", description: "Visita al Parco di Pinocchio a Collodi: una passeggiata tra sculture all'aperto, teatrini di marionette e sentieri incantati nella natura." },
+      { id: 6, category: "Visite e Musei", title: "Prima visita di Olivia allo Zoo di Pistoia", price: 30, image: "zoo.jpg", snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.", description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale." },
+      { id: 9, category: "Visite e Musei", title: "La prima volta di Olivia all'Acquario di Genova", price: 40, image: "acquario.jpg", snippet: "Tra delfini, foche e squali nei fondali marini più affascinanti.", description: "Un viaggio magico sotto il mare tra le vasche giganti dell'Acquario di Genova: per ammirare da vicino i delfini, i pinguini e le creature degli abissi con gli occhi pieni di stupore!" },
+      
+      { id: 4, category: "Sport", title: "Il primo corso di nuoto di Olivia", price: 50, image: "piscina.jpg", snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.", description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati." },
+      { id: 5, category: "Sport", title: "Prime lezioni di surf per Olivia a Fuerteventura", price: 50, image: "surf.jpg", snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.", description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura." },
+      { id: 8, category: "Sport", title: "Prime lezioni di sci all'Abetone", price: 50, image: "abetone.jpg", snippet: "Pupazzi di neve, slittino e i primi passi con gli sciettini sulla neve fresca.", description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio." },
+      { id: 12, category: "Sport", title: "La prima lezione di CrossFit di Olivia", price: 30, image: "crossfit.jpg", snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.", description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!" },
+      { id: 13, category: "Sport", title: "Le prime lezioni di arrampicata di Olivia", price: 10, image: "arrampicata.jpg", snippet: "Scarpette minuscole e le prime prese colorate in parete per piccole scimmiette.", description: "Un mini-corso di arrampicata indoor per imparare a sfidare la gravità divertendosi in totale sicurezza. Tra prese colorate, materassi morbidi e imbracature su misura, Olivia inizierà a scalare le sue prime piccole vette!" },
+      
+      { id: 10, category: "Relax & Varie", title: "Supporto psicologico e aperitivi per Babbo e Mamma", price: 10, image: "supporto.jpg", snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.", description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!" },
+      
+      { id: 11, category: "Classico", title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" }
+    ];
+
+    // Mappa icone categorie
+    const catIcons = {
+      "Viaggi": "✈️",
+      "Visite e Musei": "🏛️",
+      "Sport": "🧗‍♀️",
+      "Relax & Varie": "🥂",
+      "Classico": "🧸"
+    };
+
+    // --- CARRELLO LOGIC ---
+    let cart = [];
+    let currentSelectedExp = null;
+
+    // Genera il Catalogo raggruppato per categorie
+    const catalogContainer = document.getElementById("catalog");
+    
+    function renderCatalog() {
+      const categories = [...new Set(experiences.map(e => e.category))];
+      
+      categories.forEach(cat => {
+        // Crea Titolo Categoria
+        const catSection = document.createElement("div");
+        catSection.className = "category-section";
+        
+        const catTitle = document.createElement("h2");
+        catTitle.className = "category-title";
+        catTitle.innerText = `${catIcons[cat] || '✨'} ${cat}`;
+        catSection.appendChild(catTitle);
+
+        // Crea Griglia per questa categoria
+        const grid = document.createElement("div");
+        grid.className = "grid";
+        
+        const catExperiences = experiences.filter(e => e.category === cat);
+        catExperiences.forEach(exp => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.onclick = () => openItemModal(exp);
+          
+          const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
+          card.innerHTML = `
+            <div class="card-img-wrapper">
+              <img src="${exp.image}" alt="${exp.title}" loading="lazy">
+              <span class="price-tag">${priceText}</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">${exp.title}</h3>
+              <p class="card-snippet">${exp.snippet}</p>
+              <div class="btn-detail">Scopri e contribuisci ➔</div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+        
+        catSection.appendChild(grid);
+        catalogContainer.appendChild(catSection);
+      });
+    }
+
+    renderCatalog();
+
+    // --- MODALE SINGOLO OGGETTO ---
+    const itemModalBackdrop = document.getElementById("itemModalBackdrop");
+    const modalImg = document.getElementById("modalImg");
+    const modalImgLink = document.getElementById("modalImgLink"); 
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalActions = document.getElementById("modalActions");
+
+    function openItemModal(exp) {
+      currentSelectedExp = exp;
+      modalImg.src = exp.image;
+      modalImgLink.href = exp.image; 
+      modalTitle.innerText = exp.title;
+      modalDesc.innerText = exp.description;
+      
+      const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
+      modalPrice.innerText = priceText;
+      
+      modalActions.innerHTML = ""; // Pulisci bottoni vecchi
+
+      if (exp.isExternalLink) {
+        // Bottone per Link Esterno (IdealBimbo)
+        const btn = document.createElement("a");
+        btn.href = exp.urlTarget;
+        btn.className = "btn-buy";
+        btn.style.background = "#e53e3e";
+        btn.target = "_blank";
+        btn.innerText = "🛍️ Vai alla lista su Idealbimbo";
+        modalActions.appendChild(btn);
+      } else {
+        // Bottone Aggiungi al Carrello
+        const btn = document.createElement("button");
+        btn.className = "btn-add-cart";
+        btn.innerText = `🛒 Aggiungi al carrello (${exp.price}€)`;
+        btn.onclick = () => addToCart(exp);
+        modalActions.appendChild(btn);
+      }
+
+      itemModalBackdrop.style.display = "flex";
+    }
+
+    function closeItemModal() {
+      itemModalBackdrop.style.display = "none";
+    }
+
+    // --- FUNZIONI CARRELLO ---
+    const cartFab = document.getElementById("cartFab");
+    const cartBadge = document.getElementById("cartBadge");
+    const cartModalBackdrop = document.getElementById("cartModalBackdrop");
+    const cartItemsList = document.getElementById("cartItemsList");
+    const cartTotalSum = document.getElementById("cartTotalSum");
+    const cartPaypalBtn = document.getElementById("cartPaypalBtn");
+    const cartIbanCausale = document.getElementById("cartIbanCausale");
+
+    function addToCart(exp) {
+      cart.push(exp);
+      updateCartUI();
+      closeItemModal();
+      
+      // Feedback visivo: Apri il carrello in automatico dopo 300ms
+      setTimeout(() => {
+        openCartModal();
+      }, 300);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+      if(cart.length === 0) closeCartModal();
+    }
+
+    function updateCartUI() {
+      // Aggiorna Badge Bottone Flottante
+      cartBadge.innerText = cart.length;
+      if (cart.length > 0) {
+        cartFab.classList.remove("hidden");
+      } else {
+        cartFab.classList.add("hidden");
+      }
+
+      // Ricostruisci lista nella Modale Carrello
+      cartItemsList.innerHTML = "";
+      let total = 0;
+      let titles = [];
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        titles.push(item.title);
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <div class="cart-item-info">
+            <h4>${item.title}</h4>
+            <span>${item.price}€</span>
+          </div>
+          <button class="cart-remove" onclick="removeFromCart(${index})">Rimuovi</button>
+        `;
+        cartItemsList.appendChild(row);
+      });
+
+      // Aggiorna Totale e Link Checkout
+      cartTotalSum.innerText = total + "€";
+      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}EUR`;
+      
+      // Crea Causale IBAN troncando se troppo lunga (massimo 100 caratteri per le banche)
+      let causaleStr = titles.join(" + ");
+      if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
+      cartIbanCausale.innerText = causaleStr;
+    }
+
+    function openCartModal() {
+      if(cart.length > 0) {
+        cartModalBackdrop.style.display = "flex";
+      }
+    }
+
+    function closeCartModal() {
+      cartModalBackdrop.style.display = "none";
+    }
+
+    // Chiusura cliccando fuori dalle modali
+    itemModalBackdrop.addEventListener("click", (e) => {
+      if (e.target === itemModalBackdrop) closeItemModal();
+    });
+    cartModalBackdrop.addEventListener("click", (e) => {
+      if (e.target === cartModalBackdrop) closeCartModal();
+    });
+
+    // --- COUNTDOWN LOGIC ---
     const targetDate = new Date("December 8, 2026 00:00:00").getTime();
     const countdownInterval = setInterval(function() {
       const now = new Date().getTime();
@@ -449,93 +734,6 @@
       document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
     }, 1000);
 
-    const experiences = [
-      { id: 1, title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
-      { id: 2, title: "La prima volta a Gardaland di Olivia", price: 50, image: "gardaland.jpg", snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.", description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe." },
-      { id: 3, title: "La prima volta a Collodi di Olivia", price: 30, image: "collodi.jpg", snippet: "Alla scoperta del Parco di Pinocchio e delle meraviglie toscane.", description: "Visita al Parco di Pinocchio a Collodi: una passeggiata tra sculture all'aperto, teatrini di marionette e sentieri incantati nella natura." },
-      { id: 4, title: "Il primo corso di nuoto di Olivia", price: 50, image: "piscina.jpg", snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.", description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati." },
-      { id: 5, title: "Prime lezioni di surf per Olivia a Fuerteventura", price: 50, image: "surf.jpg", snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.", description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura." },
-      { id: 6, title: "Prima visita di Olivia allo Zoo di Pistoia", price: 30, image: "zoo.jpg", snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.", description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale." },
-      { id: 7, title: "Primo viaggio e Baby dance a Ibiza per Olivia", price: 50, image: "ibiza.jpg", snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.", description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!" },
-      { id: 8, title: "Prime lezioni di sci all'Abetone", price: 50, image: "abetone.jpg", snippet: "Pupazzi di neve, slittino e i primi passi con gli sciettini sulla neve fresca.", description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio." },
-      { id: 9, title: "La prima volta di Olivia all'Acquario di Genova", price: 40, image: "acquario.jpg", snippet: "Tra delfini, foche e squali nei fondali marini più affascinanti.", description: "Un viaggio magico sotto il mare tra le vasche giganti dell'Acquario di Genova: per ammirare da vicino i delfini, i pinguini e le creature degli abissi con gli occhi pieni di stupore!" },
-      { id: 10, title: "Supporto psicologico e aperitivi per Babbo e Mamma", price: 10, image: "supporto.jpg", snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.", description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!" },
-      { id: 11, title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" },
-      { id: 12, title: "La prima lezione di CrossFit di Olivia", price: 30, image: "crossfit.jpg", snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.", description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!" },
-      { id: 13, title: "Le prime lezioni di arrampicata di Olivia", price: 10, image: "arrampicata.jpg", snippet: "Scarpette minuscole e le prime prese colorate in parete per piccole scimmiette.", description: "Un mini-corso di arrampicata indoor per imparare a sfidare la gravità divertendosi in totale sicurezza. Tra prese colorate, materassi morbidi e imbracature su misura, Olivia inizierà a scalare le sue prime piccole vette!" }
-    ];
-
-    const grid = document.getElementById("grid");
-    const backdrop = document.getElementById("modalBackdrop");
-    const modalImg = document.getElementById("modalImg");
-    const modalImgLink = document.getElementById("modalImgLink"); 
-    const modalTitle = document.getElementById("modalTitle");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalDesc = document.getElementById("modalDesc");
-    const modalPaypalBtn = document.getElementById("modalPaypalBtn");
-    
-    // Elementi IBAN
-    const ibanContainer = document.getElementById("ibanContainer");
-    const ibanCausaleExp = document.getElementById("ibanCausaleExp");
-
-    experiences.forEach(exp => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.onclick = () => openModal(exp);
-      
-      const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
-      
-      card.innerHTML = `
-        <div class="card-img-wrapper">
-          <img src="${exp.image}" alt="${exp.title}" loading="lazy">
-          <span class="price-tag">${priceText}</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">${exp.title}</h3>
-          <p class="card-snippet">${exp.snippet}</p>
-          <div class="btn-detail">Scopri e contribuisci ➔</div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    function openModal(exp) {
-      modalImg.src = exp.image;
-      modalImgLink.href = exp.image; 
-      
-      modalTitle.innerText = exp.title;
-      modalDesc.innerText = exp.description;
-      
-      const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
-      modalPrice.innerText = priceText;
-      
-      if (exp.isExternalLink) {
-        // Se è IdealBimbo: mostra solo il tasto per il negozio, nasconde l'IBAN
-        modalPaypalBtn.href = exp.urlTarget;
-        modalPaypalBtn.innerText = `🛍️ Vai alla lista su Idealbimbo`;
-        modalPaypalBtn.style.background = "#e53e3e"; 
-        ibanContainer.style.display = "none";
-      } else {
-        // Usa il link PayPal.me con il nome utente @OliviaHTB
-        modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
-        modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
-        modalPaypalBtn.style.background = "#0070ba"; 
-        
-        // Aggiorna e mostra la causale dell'IBAN
-        ibanCausaleExp.innerText = exp.title;
-        ibanContainer.style.display = "block";
-      }
-
-      backdrop.style.display = "flex";
-    }
-
-    function closeModal() {
-      backdrop.style.display = "none";
-    }
-
-    backdrop.addEventListener("click", (e) => {
-      if (e.target === backdrop) closeModal();
-    });
   </script>
 </body>
 </html>
