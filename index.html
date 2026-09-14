@@ -442,7 +442,7 @@
       font-size: 1.05rem;
       border: none;
       cursor: pointer;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
       transition: background 0.2s;
     }
     .btn-wa:hover { background: #1da851; }
@@ -570,14 +570,14 @@
           <p class="gifter-help">Così sapremo chi ringraziare per queste esperienze! ❤️</p>
         </div>
 
-        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI -->
-        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
-          Seleziona sempre l'opzione <b>"Invia a un amico"</b> su PayPal per evitare commissioni 🌸
-        </div>
-
         <!-- TASTI DI CHECKOUT -->
         <button onclick="sendWhatsApp()" class="btn-wa">💬 1. Avvisaci su WhatsApp</button>
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 2. Paga con PayPal</a>
+
+        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI (SPOSTATO SOTTO IL PULSANTE PAYPAL) -->
+        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 0.6rem; margin-bottom: 0.5rem;">
+          Seleziona sempre l'opzione <b>"Invia a un amico"</b> su PayPal per evitare commissioni 🌸
+        </div>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
         <div class="iban-container">
@@ -816,7 +816,7 @@
       cartModalBackdrop.style.display = "none";
     }
 
-    // 💡 INVIO MESSAGGIO WHATSAPP (Senza Prezzi)
+    // 💡 INVIO MESSAGGIO WHATSAPP
     function sendWhatsApp() {
       const name = gifterNameInput.value.trim();
       if(!name) {
