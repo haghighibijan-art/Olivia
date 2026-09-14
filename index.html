@@ -423,8 +423,8 @@
   </div>
 
   <script>
-    // 💡 EMAIL PAYPAL
-    const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
+    // 💡 NOME UTENTE PAYPAL.ME
+    const PAYPAL_USERNAME = "OliviaHTB"; 
 
     // Countdown
     const targetDate = new Date("December 8, 2026 00:00:00").getTime();
@@ -516,8 +516,8 @@
         modalPaypalBtn.style.background = "#e53e3e"; 
         ibanContainer.style.display = "none";
       } else {
-        // Usa la struttura url standard per l'invio denaro di PayPal:
-        modalPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_EMAIL}&amount=${exp.price}&currency_code=EUR&item_name=Regalo+Nascita+Olivia+-+${encodeURIComponent(exp.title)}&no_shipping=1&no_note=1`;
+        // Usa il link PayPal.me con il nome utente @OliviaHTB
+        modalPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${exp.price}EUR`;
         modalPaypalBtn.innerText = `🎁 Regala ${exp.price}€ con PayPal`;
         modalPaypalBtn.style.background = "#0070ba"; 
         
