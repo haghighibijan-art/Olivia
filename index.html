@@ -400,6 +400,53 @@
       font-size: 1.5rem;
     }
 
+    /* --- SEZIONE FIRMA REGALO E WHATSAPP --- */
+    .gifter-form {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+    .gifter-form label {
+      display: block;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+    .gifter-form input {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f8fafc;
+    }
+    .gifter-help {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    .btn-wa {
+      display: block;
+      width: 100%;
+      background: #25D366;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.9rem 1.2rem;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+    .btn-wa:hover { background: #1da851; }
+
     /* --- IBAN --- */
     .iban-container {
       background-color: #f8fafc;
@@ -516,12 +563,21 @@
           Totale: <strong id="cartTotalSum">0€</strong>
         </div>
 
-        <!-- TASTO PAYPAL GENERALE -->
-        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Apri PayPal</a>
-        <!-- Avviso elegante per evitare le commissioni -->
-        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 0.6rem; margin-bottom: 1.5rem;">
-          *Ricordati di inserire <b><span id="paypalAmountHint"></span></b> e selezionare l'opzione "Invia a un amico" 🌸
+        <!-- SEZIONE: FIRMA IL REGALO -->
+        <div class="gifter-form">
+          <label for="gifterName">Firma il tuo regalo ✍️</label>
+          <input type="text" id="gifterName" placeholder="Es. Zio Marco e Zia Anna">
+          <p class="gifter-help">Così sapremo chi ringraziare per queste esperienze! ❤️</p>
         </div>
+
+        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI -->
+        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+          Seleziona sempre <b>"Invia a un amico"</b> su PayPal 🌸
+        </div>
+
+        <!-- TASTI DI CHECKOUT (WhatsApp prima, PayPal dopo) -->
+        <button onclick="sendWhatsApp()" class="btn-wa">💬 1. Avvisaci su WhatsApp</button>
+        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 2. Paga con PayPal</a>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
         <div class="iban-container">
@@ -538,6 +594,7 @@
   <script>
     // 💡 COSTANTI E DATI
     const PAYPAL_USERNAME = "OliviaHTB"; 
+    const WHATSAPP_NUMBER = "393515650000"; // Tuo numero aggiornato
     
     const experiences = [
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
@@ -585,7 +642,7 @@
     const cartTotalSum = document.getElementById("cartTotalSum");
     const cartPaypalBtn = document.getElementById("cartPaypalBtn");
     const cartIbanCausale = document.getElementById("cartIbanCausale");
-    const paypalAmountHint = document.getElementById("paypalAmountHint");
+    const gifterNameInput = document.getElementById("gifterName");
 
     // 💡 FUNZIONI PRINCIPALI
     function renderCatalog() {
@@ -740,10 +797,9 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // Imposta il Link PayPal pulito + Suggerimento testuale
+      // Imposta il Link PayPal
       cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}`;
-      cartPaypalBtn.innerText = `🎁 Apri PayPal (Digita ${total}€)`;
-      paypalAmountHint.innerText = total + "€";
+      cartPaypalBtn.innerText = `🎁 2. Apri PayPal (Digita ${total}€)`;
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
@@ -760,6 +816,22 @@
       cartModalBackdrop.style.display = "none";
     }
 
+    // 💡 INVIO MESSAGGIO WHATSAPP (Senza Prezzi)
+    function sendWhatsApp() {
+      const name = gifterNameInput.value.trim();
+      if(!name) {
+        alert("Per favore, firma il tuo regalo inserendo il tuo nome prima di avvisarci! 🌸");
+        gifterNameInput.focus();
+        return;
+      }
+      
+      let titles = cart.map(item => item.title).join(", ");
+      
+      let message = `Ciao Camilla e Bijan! 🌸%0A%0AVi abbiamo appena preso un regalo per la piccola Olivia:%0A👉 *${titles}*%0A%0AUn abbraccio da: *${name}*`;
+      
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+    }
+
     // 💡 EVENT LISTENERS
     itemModalBackdrop.addEventListener("click", (e) => {
       if (e.target === itemModalBackdrop) closeItemModal();
@@ -771,7 +843,7 @@
     // 💡 INIZIALIZZAZIONE CATALOGO
     renderCatalog();
 
-    // 💡 COUNTDOWN LOGIC (ISO Format per totale sicurezza)
+    // 💡 COUNTDOWN LOGIC 
     const targetDate = new Date("2026-12-08T00:00:00").getTime();
     
     const countdownInterval = setInterval(function() {
