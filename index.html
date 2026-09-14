@@ -16,6 +16,7 @@
       --text: #2d3748;
       --text-muted: #718096;
       --accent: #fcd34d;
+      --cart-color: #ff477e; /* Nuovo colore rosa accesso per il carrello */
     }
 
     * {
@@ -29,7 +30,7 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 2rem 1rem 6rem;
+      padding: 5rem 1rem 4rem; /* Spazio in alto per non coprire il titolo col carrello */
     }
 
     .container {
@@ -56,17 +57,68 @@
       margin: 0 auto;
     }
 
-    /* --- CATEGORIE --- */
+    /* --- CATEGORIE A TENDINA --- */
     .category-section {
-      margin-bottom: 4rem;
-    }
-    .category-title {
-      font-size: 1.8rem;
-      color: var(--primary);
       margin-bottom: 1.5rem;
-      border-bottom: 2px dashed #ffccd5;
-      padding-bottom: 0.5rem;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      overflow: hidden;
+      border: 1px solid #ffe4e6;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.8rem;
+      cursor: pointer;
+      background: #ffffff;
+      transition: background 0.2s;
+    }
+
+    .category-header:hover {
+      background: #fff0f2;
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 0;
       font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-icon {
+      font-size: 1.8rem;
+    }
+
+    .category-chevron {
+      font-size: 1.2rem;
+      color: var(--primary);
+      transition: transform 0.3s ease;
+      font-weight: 800;
+    }
+
+    .category-content {
+      padding: 0 1.8rem 1.8rem 1.8rem;
+      display: none; /* Chiuse di default */
+    }
+
+    .category-content.active {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .category-header.active .category-chevron {
+      transform: rotate(180deg);
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* --- GRIGLIA --- */
@@ -74,28 +126,30 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
+      margin-top: 1rem;
     }
 
     .card {
-      background: var(--card-bg);
-      border-radius: 20px;
+      background: var(--bg);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
+      border: 1px solid #f1f5f9;
     }
 
     .card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.08);
     }
 
     .card-img-wrapper {
       position: relative;
       width: 100%;
-      height: 240px;
+      height: 200px;
       background: #eee;
     }
 
@@ -120,14 +174,14 @@
     }
 
     .card-body {
-      padding: 1.4rem;
+      padding: 1.2rem;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
     .card-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--text);
@@ -135,17 +189,17 @@
 
     .card-snippet {
       color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.2rem;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
       flex-grow: 1;
     }
 
     .btn-detail {
-      background: #f8fafc;
+      background: #ffffff;
       color: var(--primary);
       border: 1px solid #ffe4e6;
-      border-radius: 12px;
-      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
       font-weight: 600;
       text-align: center;
       transition: all 0.2s;
@@ -166,7 +220,7 @@
       justify-content: center;
       align-items: center;
       padding: 1rem;
-      z-index: 1000;
+      z-index: 2000;
     }
 
     .modal-box {
@@ -273,10 +327,10 @@
     }
 
     .btn-add-cart {
-      background: var(--primary);
+      background: var(--cart-color);
     }
     .btn-add-cart:hover {
-      background: var(--primary-hover);
+      background: #e83e6b;
     }
     
     .btn-paypal {
@@ -286,20 +340,20 @@
       background: #005ea6;
     }
 
-    /* --- CARRELLO FLOTTANTE --- */
+    /* --- CARRELLO FLOTTANTE (SPOSTATO IN ALTO A DESTRA E COLORATO) --- */
     .cart-fab {
       position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #0070ba;
+      top: 15px;
+      right: 15px;
+      background: var(--cart-color);
       color: white;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 50px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      box-shadow: 0 8px 25px rgba(0, 112, 186, 0.4);
+      box-shadow: 0 6px 20px rgba(255, 71, 126, 0.4);
       cursor: pointer;
-      z-index: 99;
+      z-index: 1000;
       display: flex;
       align-items: center;
       gap: 0.8rem;
@@ -311,7 +365,7 @@
     }
     .cart-badge {
       background: white;
-      color: #0070ba;
+      color: var(--cart-color);
       padding: 2px 8px;
       border-radius: 20px;
       font-size: 0.9rem;
@@ -419,6 +473,11 @@
 </head>
 <body>
 
+  <!-- BOTTONE CARRELLO FLOTTANTE IN ALTO A DESTRA -->
+  <button id="cartFab" class="cart-fab hidden" onclick="openCartModal()">
+    🛒 Carrello <span id="cartBadge" class="cart-badge">0</span>
+  </button>
+
   <div class="container">
     <header>
       <h1>Le Future Avventure di Olivia 🍼✨</h1>
@@ -439,11 +498,6 @@
       </div>
     </div>
   </div>
-
-  <!-- BOTTONE CARRELLO FLOTTANTE -->
-  <button id="cartFab" class="cart-fab hidden" onclick="openCartModal()">
-    🛒 Carrello <span id="cartBadge" class="cart-badge">0</span>
-  </button>
 
   <!-- MODALE DETTAGLIO ESPERIENZA -->
   <div class="modal-backdrop" id="itemModalBackdrop">
@@ -479,7 +533,7 @@
           Totale: <strong id="cartTotalSum">0€</strong>
         </div>
 
-        <!-- TASTO PAYPAL GENERALE AGGIORNATO (Senza EUR) -->
+        <!-- TASTO PAYPAL GENERALE -->
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga il totale con PayPal</a>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
@@ -530,7 +584,6 @@
 
     // --- CARRELLO LOGIC ---
     let cart = [];
-    let currentSelectedExp = null;
 
     const catalogContainer = document.getElementById("catalog");
     
@@ -541,10 +594,17 @@
         const catSection = document.createElement("div");
         catSection.className = "category-section";
         
-        const catTitle = document.createElement("h2");
-        catTitle.className = "category-title";
-        catTitle.innerText = `${catIcons[cat] || '✨'} ${cat}`;
-        catSection.appendChild(catTitle);
+        // Header per la tendina
+        const catHeader = document.createElement("div");
+        catHeader.className = "category-header";
+        catHeader.innerHTML = `
+          <h2 class="category-title"><span class="category-icon">${catIcons[cat] || '✨'}</span> ${cat}</h2>
+          <span class="category-chevron">▼</span>
+        `;
+
+        // Contenuto nascosto di default
+        const catContent = document.createElement("div");
+        catContent.className = "category-content";
 
         const grid = document.createElement("div");
         grid.className = "grid";
@@ -570,7 +630,16 @@
           grid.appendChild(card);
         });
         
-        catSection.appendChild(grid);
+        catContent.appendChild(grid);
+
+        // Aggiungo la funzione Apri/Chiudi al click sull'header della categoria
+        catHeader.onclick = () => {
+          catContent.classList.toggle("active");
+          catHeader.classList.toggle("active");
+        };
+
+        catSection.appendChild(catHeader);
+        catSection.appendChild(catContent);
         catalogContainer.appendChild(catSection);
       });
     }
@@ -587,7 +656,6 @@
     const modalActions = document.getElementById("modalActions");
 
     function openItemModal(exp) {
-      currentSelectedExp = exp;
       modalImg.src = exp.image;
       modalImgLink.href = exp.image; 
       modalTitle.innerText = exp.title;
@@ -675,8 +743,6 @@
       });
 
       cartTotalSum.innerText = total + "€";
-      
-      // IL LINK CORRETTO SENZA "EUR" CHE PASSA IL NUMERO ESATTO
       cartPaypalBtn.href = `https://www.paypal.com/paypalme/${PAYPAL_USERNAME}/${total}`;
       
       let causaleStr = titles.join(" + ");
