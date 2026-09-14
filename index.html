@@ -29,7 +29,7 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 2rem 1rem 6rem; /* Margine inferiore per il bottone carrello */
+      padding: 2rem 1rem 6rem;
     }
 
     .container {
@@ -156,7 +156,7 @@
       color: #fff;
     }
 
-    /* --- MODALI (Condivise) --- */
+    /* --- MODALI --- */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -425,7 +425,7 @@
       <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci piacerebbe che contribuisse ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
-    <!-- CATALOGO (Viene riempito dinamicamente dal Javascript) -->
+    <!-- CATALOGO -->
     <div id="catalog"></div>
 
     <!-- BOX COUNTDOWN -->
@@ -459,7 +459,6 @@
         </div>
         <p class="modal-desc" id="modalDesc"></p>
         
-        <!-- Pulsanti dinamici (Aggiungi al carrello OPPURE Vai al sito) -->
         <div id="modalActions"></div>
       </div>
     </div>
@@ -480,7 +479,7 @@
           Totale: <strong id="cartTotalSum">0€</strong>
         </div>
 
-        <!-- TASTO PAYPAL GENERALE -->
+        <!-- TASTO PAYPAL GENERALE AGGIORNATO (Senza EUR) -->
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga il totale con PayPal</a>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
@@ -533,14 +532,12 @@
     let cart = [];
     let currentSelectedExp = null;
 
-    // Genera il Catalogo raggruppato per categorie
     const catalogContainer = document.getElementById("catalog");
     
     function renderCatalog() {
       const categories = [...new Set(experiences.map(e => e.category))];
       
       categories.forEach(cat => {
-        // Crea Titolo Categoria
         const catSection = document.createElement("div");
         catSection.className = "category-section";
         
@@ -549,7 +546,6 @@
         catTitle.innerText = `${catIcons[cat] || '✨'} ${cat}`;
         catSection.appendChild(catTitle);
 
-        // Crea Griglia per questa categoria
         const grid = document.createElement("div");
         grid.className = "grid";
         
@@ -600,10 +596,9 @@
       const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
       modalPrice.innerText = priceText;
       
-      modalActions.innerHTML = ""; // Pulisci bottoni vecchi
+      modalActions.innerHTML = ""; 
 
       if (exp.isExternalLink) {
-        // Bottone per Link Esterno (IdealBimbo)
         const btn = document.createElement("a");
         btn.href = exp.urlTarget;
         btn.className = "btn-buy";
@@ -612,7 +607,6 @@
         btn.innerText = "🛍️ Vai alla lista su Idealbimbo";
         modalActions.appendChild(btn);
       } else {
-        // Bottone Aggiungi al Carrello
         const btn = document.createElement("button");
         btn.className = "btn-add-cart";
         btn.innerText = `🛒 Aggiungi al carrello (${exp.price}€)`;
@@ -641,7 +635,6 @@
       updateCartUI();
       closeItemModal();
       
-      // Feedback visivo: Apri il carrello in automatico dopo 300ms
       setTimeout(() => {
         openCartModal();
       }, 300);
@@ -654,7 +647,6 @@
     }
 
     function updateCartUI() {
-      // Aggiorna Badge Bottone Flottante
       cartBadge.innerText = cart.length;
       if (cart.length > 0) {
         cartFab.classList.remove("hidden");
@@ -662,7 +654,6 @@
         cartFab.classList.add("hidden");
       }
 
-      // Ricostruisci lista nella Modale Carrello
       cartItemsList.innerHTML = "";
       let total = 0;
       let titles = [];
@@ -683,11 +674,11 @@
         cartItemsList.appendChild(row);
       });
 
-      // Aggiorna Totale e Link Checkout
       cartTotalSum.innerText = total + "€";
-      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}EUR`;
       
-      // Crea Causale IBAN troncando se troppo lunga (massimo 100 caratteri per le banche)
+      // IL LINK CORRETTO SENZA "EUR" CHE PASSA IL NUMERO ESATTO
+      cartPaypalBtn.href = `https://www.paypal.com/paypalme/${PAYPAL_USERNAME}/${total}`;
+      
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
       cartIbanCausale.innerText = causaleStr;
@@ -703,7 +694,6 @@
       cartModalBackdrop.style.display = "none";
     }
 
-    // Chiusura cliccando fuori dalle modali
     itemModalBackdrop.addEventListener("click", (e) => {
       if (e.target === itemModalBackdrop) closeItemModal();
     });
