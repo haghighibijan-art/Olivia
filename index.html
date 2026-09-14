@@ -57,7 +57,7 @@
       margin: 0 auto;
     }
 
-    /* --- CATEGORIE (SENZA TENDINA) E SPAZIATURE --- */
+    /* --- CATEGORIE E SPAZIATURE --- */
     .category-section {
       margin-bottom: 5rem;
     }
@@ -464,7 +464,6 @@
   <div class="container">
     <header>
       <h1>Le Future Avventure di Olivia 🍼✨</h1>
-      <!-- Errore corretto qui sotto! -->
       <p>Cari amici e parenti, abbiamo già tutto il necessario materiale per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
@@ -518,7 +517,11 @@
         </div>
 
         <!-- TASTO PAYPAL GENERALE -->
-        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga il totale con PayPal</a>
+        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Apri PayPal</a>
+        <!-- Avviso elegante per evitare le commissioni -->
+        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 0.6rem; margin-bottom: 1.5rem;">
+          *Ricordati di inserire <b><span id="paypalAmountHint"></span></b> e selezionare l'opzione "Invia a un amico" 🌸
+        </div>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
         <div class="iban-container">
@@ -533,10 +536,9 @@
   </div>
 
   <script>
-    // EMAIL DEL CONTO PAYPAL
-    const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
-
-    // --- DATI ESPERIENZE E CATEGORIE ---
+    // 💡 COSTANTI E DATI
+    const PAYPAL_USERNAME = "OliviaHTB"; 
+    
     const experiences = [
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
       { id: 7, category: "Viaggi", title: "Primo viaggio e Baby dance a Ibiza per Olivia", price: 50, image: "ibiza.jpg", snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.", description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!" },
@@ -557,7 +559,6 @@
       { id: 11, category: "Classico", title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" }
     ];
 
-    // Mappa icone categorie
     const catIcons = {
       "Viaggi": "✈️",
       "Visite e Musei": "🏛️",
@@ -566,11 +567,27 @@
       "Classico": "🧸"
     };
 
-    // --- CARRELLO LOGIC ---
     let cart = [];
 
+    // 💡 ELEMENTI DOM
     const catalogContainer = document.getElementById("catalog");
-    
+    const itemModalBackdrop = document.getElementById("itemModalBackdrop");
+    const modalImg = document.getElementById("modalImg");
+    const modalImgLink = document.getElementById("modalImgLink"); 
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalActions = document.getElementById("modalActions");
+    const cartFab = document.getElementById("cartFab");
+    const cartBadge = document.getElementById("cartBadge");
+    const cartModalBackdrop = document.getElementById("cartModalBackdrop");
+    const cartItemsList = document.getElementById("cartItemsList");
+    const cartTotalSum = document.getElementById("cartTotalSum");
+    const cartPaypalBtn = document.getElementById("cartPaypalBtn");
+    const cartIbanCausale = document.getElementById("cartIbanCausale");
+    const paypalAmountHint = document.getElementById("paypalAmountHint");
+
+    // 💡 FUNZIONI PRINCIPALI
     function renderCatalog() {
       catalogContainer.innerHTML = "";
       const categories = [...new Set(experiences.map(e => e.category))];
@@ -616,17 +633,6 @@
 
       updateCartUI(); 
     }
-
-    renderCatalog();
-
-    // --- MODALE SINGOLO OGGETTO ---
-    const itemModalBackdrop = document.getElementById("itemModalBackdrop");
-    const modalImg = document.getElementById("modalImg");
-    const modalImgLink = document.getElementById("modalImgLink"); 
-    const modalTitle = document.getElementById("modalTitle");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalDesc = document.getElementById("modalDesc");
-    const modalActions = document.getElementById("modalActions");
 
     function openItemModal(exp) {
       modalImg.src = exp.image;
@@ -686,15 +692,6 @@
       itemModalBackdrop.style.display = "none";
     }
 
-    // --- FUNZIONI CARRELLO ---
-    const cartFab = document.getElementById("cartFab");
-    const cartBadge = document.getElementById("cartBadge");
-    const cartModalBackdrop = document.getElementById("cartModalBackdrop");
-    const cartItemsList = document.getElementById("cartItemsList");
-    const cartTotalSum = document.getElementById("cartTotalSum");
-    const cartPaypalBtn = document.getElementById("cartPaypalBtn");
-    const cartIbanCausale = document.getElementById("cartIbanCausale");
-
     function removeFromCart(index) {
       cart.splice(index, 1);
       updateCartUI();
@@ -743,8 +740,10 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK PAYPAL (Usiamo il formato esteso standard per compatibilità universale e zero commissioni in partenza)
-      cartPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${total}&item_name=Regalo+Nascita+Olivia`;
+      // Imposta il Link PayPal pulito + Suggerimento testuale
+      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}`;
+      cartPaypalBtn.innerText = `🎁 Apri PayPal (Digita ${total}€)`;
+      paypalAmountHint.innerText = total + "€";
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
@@ -761,6 +760,7 @@
       cartModalBackdrop.style.display = "none";
     }
 
+    // 💡 EVENT LISTENERS
     itemModalBackdrop.addEventListener("click", (e) => {
       if (e.target === itemModalBackdrop) closeItemModal();
     });
@@ -768,7 +768,10 @@
       if (e.target === cartModalBackdrop) closeCartModal();
     });
 
-    // --- COUNTDOWN LOGIC (Corretto con formato ISO per massima compatibilità Safari/iOS) ---
+    // 💡 INIZIALIZZAZIONE CATALOGO
+    renderCatalog();
+
+    // 💡 COUNTDOWN LOGIC (ISO Format per totale sicurezza)
     const targetDate = new Date("2026-12-08T00:00:00").getTime();
     
     const countdownInterval = setInterval(function() {
