@@ -447,6 +447,22 @@
     }
     .btn-wa:hover { background: #1da851; }
 
+    /* --- AVVISO PAYPAL MIGLIORATO --- */
+    .paypal-helper-box {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #475569;
+      margin-top: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #e2e8f0;
+    }
+    .paypal-helper-box b {
+      color: #0f172a;
+    }
+
     /* --- IBAN --- */
     .iban-container {
       background-color: #f8fafc;
@@ -574,9 +590,9 @@
         <button onclick="sendWhatsApp()" class="btn-wa">💬 1. Avvisaci su WhatsApp</button>
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 2. Paga con PayPal</a>
 
-        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI -->
-        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 0.6rem; margin-bottom: 0.5rem;">
-          Seleziona sempre l'opzione <b>"Invia a un amico"</b> su PayPal per evitare commissioni 🌸
+        <!-- AVVISO PAYPAL GUIDATO SOTTO IL PULSANTE -->
+        <div class="paypal-helper-box">
+          📱 <i>Nota: Se si apre l'App di PayPal sul telefono, clicca il tasto nero <b>"Invia"</b> in basso, digita <b><span id="paypalAmountHint">0€</span></b> e seleziona <b>"Invia a un amico"</b> per non pagare commissioni.</i> 🌸
         </div>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
@@ -643,6 +659,7 @@
     const cartPaypalBtn = document.getElementById("cartPaypalBtn");
     const cartIbanCausale = document.getElementById("cartIbanCausale");
     const gifterNameInput = document.getElementById("gifterName");
+    const paypalAmountHint = document.getElementById("paypalAmountHint");
 
     // 💡 FUNZIONI PRINCIPALI
     function renderCatalog() {
@@ -797,9 +814,13 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK PAYPAL CON FORMATO "EUR" (Previene l'errore del profilo vuoto su app mobile)
+      // LINK PAYPAL SEMPRE CORRETTO CON IMPORTO IN EUR
       cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}EUR`;
-      cartPaypalBtn.innerText = `🎁 2. Paga ${total}€ con PayPal`;
+      
+      // AGGIORNA IL TESTO DELL'HINT NEL BOX SOTTOSTANTE
+      if(paypalAmountHint) {
+        paypalAmountHint.innerText = total + "€";
+      }
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
