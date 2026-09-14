@@ -549,7 +549,7 @@
   </div>
 
   <script>
-    // INSERISCI L'EMAIL ASSOCIATA AL TUO CONTO PAYPAL
+    // EMAIL DEL CONTO PAYPAL
     const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
 
     // --- DATI ESPERIENZE E CATEGORIE ---
@@ -744,8 +744,8 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK AGGIORNATO (Forza il pagamento in formato donazione per non essere bloccato sulle app mobile)
-      cartPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${total}&item_name=Regalo+Nascita+Olivia`;
+      // LINK PAYPAL DIRETTO CON EMAIL E IMPORTO PRECOMPILATO
+      cartPaypalBtn.href = `https://www.paypal.com/myaccount/transfer/send/external/pay-preview?recipient=${PAYPAL_EMAIL}&amount=${total}&currencyCode=EUR`;
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
