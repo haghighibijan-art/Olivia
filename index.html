@@ -57,34 +57,17 @@
       margin: 0 auto;
     }
 
-    /* --- CATEGORIE A TENDINA --- */
+    /* --- CATEGORIE (SENZA TENDINA) E SPAZIATURE --- */
     .category-section {
-      margin-bottom: 1.5rem;
-      background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-      overflow: hidden;
-      border: 1px solid #ffe4e6;
-    }
-
-    .category-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 1.8rem;
-      cursor: pointer;
-      background: #ffffff;
-      transition: background 0.2s;
-    }
-
-    .category-header:hover {
-      background: #fff0f2;
+      margin-bottom: 5rem; /* Maggiore spaziatura tra categorie */
     }
 
     .category-title {
-      font-size: 1.4rem;
-      color: var(--text);
-      margin-bottom: 0;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      border-bottom: 2px dashed #ffccd5;
+      padding-bottom: 0.5rem;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -95,38 +78,12 @@
       font-size: 1.8rem;
     }
 
-    .category-chevron {
-      font-size: 1.2rem;
-      color: var(--primary);
-      transition: transform 0.3s ease;
-      font-weight: 800;
-    }
-
-    .category-content {
-      padding: 0 1.8rem 1.8rem 1.8rem;
-      display: none;
-    }
-
-    .category-content.active {
-      display: block;
-      animation: slideDown 0.3s ease-out;
-    }
-
-    .category-header.active .category-chevron {
-      transform: rotate(180deg);
-    }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* --- GRIGLIA --- */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      /* auto-fill impedisce all'oggetto singolo di allargarsi */
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
       gap: 2rem;
-      margin-top: 1rem;
     }
 
     .card {
@@ -139,11 +96,38 @@
       display: flex;
       flex-direction: column;
       border: 1px solid #f1f5f9;
+      position: relative; /* Per posizionare la targhetta */
     }
 
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    }
+
+    /* --- EFFETTO OGGETTO SELEZIONATO --- */
+    .card.in-cart {
+      box-shadow: 0 0 0 3px var(--cart-color), 0 6px 15px rgba(0,0,0,0.05);
+    }
+    .card.in-cart:hover {
+      box-shadow: 0 0 0 3px var(--cart-color), 0 12px 25px rgba(0,0,0,0.08);
+    }
+
+    .card-badge-cart {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--cart-color);
+      color: white;
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(255, 71, 126, 0.3);
+      z-index: 10;
+      display: none; /* Visibile solo se ha la classe in-cart */
+    }
+    .card.in-cart .card-badge-cart {
+      display: block;
     }
 
     .card-img-wrapper {
@@ -409,7 +393,7 @@
       padding: 1.2rem;
       border-radius: 12px;
       text-align: right;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
       font-size: 1.2rem;
     }
     .cart-total-box strong {
@@ -534,7 +518,7 @@
         </div>
 
         <!-- TASTO PAYPAL GENERALE -->
-        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga il totale con PayPal</a>
+        <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 Paga con PayPal</a>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
         <div class="iban-container">
@@ -549,7 +533,7 @@
   </div>
 
   <script>
-    // EMAIL DEL CONTO PAYPAL
+    // 💡 EMAIL DEL CONTO PAYPAL
     const PAYPAL_EMAIL = "haghighi.bijan@gmail.com"; 
 
     // --- DATI ESPERIENZE E CATEGORIE ---
@@ -588,24 +572,17 @@
     const catalogContainer = document.getElementById("catalog");
     
     function renderCatalog() {
+      catalogContainer.innerHTML = "";
       const categories = [...new Set(experiences.map(e => e.category))];
       
       categories.forEach(cat => {
         const catSection = document.createElement("div");
         catSection.className = "category-section";
         
-        // Header per la tendina
-        const catHeader = document.createElement("div");
-        catHeader.className = "category-header";
-        catHeader.innerHTML = `
-          <h2 class="category-title"><span class="category-icon">${catIcons[cat] || '✨'}</span> ${cat}</h2>
-          <span class="category-chevron">▼</span>
-        `;
-
-        // Contenuto nascosto di default
-        const catContent = document.createElement("div");
-        catContent.className = "category-content";
-
+        const catHeader = document.createElement("h2");
+        catHeader.className = "category-title";
+        catHeader.innerHTML = `<span class="category-icon">${catIcons[cat] || '✨'}</span> ${cat}`;
+        
         const grid = document.createElement("div");
         grid.className = "grid";
         
@@ -613,10 +590,12 @@
         catExperiences.forEach(exp => {
           const card = document.createElement("div");
           card.className = "card";
+          card.id = `card-exp-${exp.id}`;
           card.onclick = () => openItemModal(exp);
           
           const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
           card.innerHTML = `
+            <div class="card-badge-cart">✓ Nel Carrello</div>
             <div class="card-img-wrapper">
               <img src="${exp.image}" alt="${exp.title}" loading="lazy">
               <span class="price-tag">${priceText}</span>
@@ -630,18 +609,13 @@
           grid.appendChild(card);
         });
         
-        catContent.appendChild(grid);
-
-        // Aggiungo la funzione Apri/Chiudi al click sull'header della categoria
-        catHeader.onclick = () => {
-          catContent.classList.toggle("active");
-          catHeader.classList.toggle("active");
-        };
-
         catSection.appendChild(catHeader);
-        catSection.appendChild(catContent);
+        catSection.appendChild(grid);
         catalogContainer.appendChild(catSection);
       });
+
+      // Applica la classe in-cart se ce ne sono già (es. dopo aver rimosso qualcosa dal carrello)
+      updateCartUI(); 
     }
 
     renderCatalog();
@@ -664,6 +638,11 @@
       const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
       modalPrice.innerText = priceText;
       
+      renderModalActions(exp);
+      itemModalBackdrop.style.display = "flex";
+    }
+
+    function renderModalActions(exp) {
       modalActions.innerHTML = ""; 
 
       if (exp.isExternalLink) {
@@ -675,14 +654,35 @@
         btn.innerText = "🛍️ Vai alla lista su Idealbimbo";
         modalActions.appendChild(btn);
       } else {
+        // Controlla quante volte è già stato aggiunto
+        const occurrencesInCart = cart.filter(item => item.id === exp.id).length;
+        
+        if (occurrencesInCart > 0) {
+          const msg = document.createElement("div");
+          msg.style.cssText = "text-align: center; color: var(--cart-color); font-weight: bold; margin-bottom: 1rem;";
+          msg.innerText = `✓ Hai già aggiunto questa esperienza (${occurrencesInCart})`;
+          modalActions.appendChild(msg);
+        }
+
         const btn = document.createElement("button");
         btn.className = "btn-add-cart";
-        btn.innerText = `🛒 Aggiungi al carrello (${exp.price}€)`;
-        btn.onclick = () => addToCart(exp);
+        btn.innerText = occurrencesInCart > 0 ? `🛒 Aggiungi ancora (${exp.price}€)` : `🛒 Aggiungi al carrello (${exp.price}€)`;
+        
+        btn.onclick = () => {
+          cart.push(exp);
+          updateCartUI(); // Aggiorna graficamente la card dietro
+          
+          // Cambia l'interno della modale per guidare l'utente alla doppia scelta
+          modalActions.innerHTML = `
+            <div style="text-align: center; color: var(--cart-color); font-weight: bold; margin-bottom: 1.5rem; font-size: 1.15rem;">
+              ✓ Aggiunto al carrello!
+            </div>
+            <button class="btn-buy" style="background: #f8fafc; color: var(--text); border: 2px solid #cbd5e1; margin-bottom: 0.8rem;" onclick="closeItemModal()">🔍 Continua la ricerca</button>
+            <button class="btn-add-cart" onclick="closeItemModal(); openCartModal();">💳 Vai al carrello e Paga</button>
+          `;
+        };
         modalActions.appendChild(btn);
       }
-
-      itemModalBackdrop.style.display = "flex";
     }
 
     function closeItemModal() {
@@ -698,16 +698,6 @@
     const cartPaypalBtn = document.getElementById("cartPaypalBtn");
     const cartIbanCausale = document.getElementById("cartIbanCausale");
 
-    function addToCart(exp) {
-      cart.push(exp);
-      updateCartUI();
-      closeItemModal();
-      
-      setTimeout(() => {
-        openCartModal();
-      }, 300);
-    }
-
     function removeFromCart(index) {
       cart.splice(index, 1);
       updateCartUI();
@@ -715,6 +705,7 @@
     }
 
     function updateCartUI() {
+      // Aggiorna il numerino nel bottone flottante
       cartBadge.innerText = cart.length;
       if (cart.length > 0) {
         cartFab.classList.remove("hidden");
@@ -722,6 +713,20 @@
         cartFab.classList.add("hidden");
       }
 
+      // Aggiorna le classi per evidenziare le card nella griglia
+      experiences.forEach(exp => {
+        const cardEl = document.getElementById(`card-exp-${exp.id}`);
+        if (cardEl) {
+          const inCart = cart.some(item => item.id === exp.id);
+          if (inCart) {
+            cardEl.classList.add("in-cart");
+          } else {
+            cardEl.classList.remove("in-cart");
+          }
+        }
+      });
+
+      // Ricostruisci il riepilogo nella Modale del Carrello
       cartItemsList.innerHTML = "";
       let total = 0;
       let titles = [];
@@ -744,8 +749,8 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK PAYPAL DIRETTO CON EMAIL E IMPORTO PRECOMPILATO
-      cartPaypalBtn.href = `https://www.paypal.com/myaccount/transfer/send/external/pay-preview?recipient=${PAYPAL_EMAIL}&amount=${total}&currencyCode=EUR`;
+      // LINK PAYPAL AGGIORNATO (Link Universale Diretto)
+      cartPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${total}&item_name=Regalo+Nascita+Olivia`;
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
