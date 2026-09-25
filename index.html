@@ -40,7 +40,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2.5rem;
     }
 
     header h1 {
@@ -57,6 +57,40 @@
       margin: 0 auto;
     }
 
+    /* --- COUNTDOWN (ORA IN TESTA) --- */
+    .countdown-container {
+      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
+      border: 1px solid #ffccd5;
+      border-radius: 20px;
+      padding: 1.5rem;
+      max-width: 550px;
+      margin: 0 auto 4rem auto; /* Spazio sotto il timer, centrato */
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
+    }
+    .countdown-container h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .countdown { display: flex; justify-content: center; gap: 1.2rem; }
+    .time-box {
+      display: flex; flex-direction: column; align-items: center;
+      background: #ffffff; padding: 0.8rem 1rem; border-radius: 15px;
+      min-width: 75px; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+    .time-box span { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .time-box small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; text-transform: uppercase; font-weight: 600; }
+
+    @media (max-width: 500px) {
+      .countdown { gap: 0.5rem; }
+      .time-box { min-width: 65px; padding: 0.6rem; }
+      .time-box span { font-size: 1.5rem; }
+      .time-box small { font-size: 0.7rem; }
+    }
+
     /* --- CATEGORIE E SPAZIATURE --- */
     .category-section {
       margin-bottom: 5rem;
@@ -71,6 +105,7 @@
       font-weight: 800;
       display: flex;
       align-items: center;
+      justify-content: center; /* Centra il titolo e l'icona */
       gap: 12px;
     }
 
@@ -78,10 +113,11 @@
       font-size: 1.8rem;
     }
 
-    /* --- GRIGLIA --- */
+    /* --- GRIGLIA CENTRATA --- */
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* CENTRATURA ATTIVATA QUI */
       gap: 2rem;
     }
 
@@ -96,6 +132,10 @@
       flex-direction: column;
       border: 1px solid #f1f5f9;
       position: relative; 
+      
+      /* Dimensioni flessibili e limitate per mantenere l'aspetto a griglia ma centrato */
+      flex: 1 1 280px;
+      max-width: 330px; 
     }
 
     .card:hover {
@@ -168,6 +208,7 @@
       font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--text);
+      text-align: center;
     }
 
     .card-snippet {
@@ -175,6 +216,7 @@
       font-size: 0.85rem;
       margin-bottom: 1rem;
       flex-grow: 1;
+      text-align: center;
     }
 
     .btn-detail {
@@ -442,26 +484,10 @@
       font-size: 1.05rem;
       border: none;
       cursor: pointer;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       transition: background 0.2s;
     }
     .btn-wa:hover { background: #1da851; }
-
-    /* --- AVVISO PAYPAL MIGLIORATO --- */
-    .paypal-helper-box {
-      background: #f1f5f9;
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #475569;
-      margin-top: 0.8rem;
-      margin-bottom: 1rem;
-      border: 1px solid #e2e8f0;
-    }
-    .paypal-helper-box b {
-      color: #0f172a;
-    }
 
     /* --- IBAN --- */
     .iban-container {
@@ -488,33 +514,6 @@
     .iban-detail strong {
       color: var(--text);
     }
-
-    /* --- COUNTDOWN --- */
-    .countdown-container {
-      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
-      border: 1px solid #ffccd5;
-      border-radius: 20px;
-      padding: 1.5rem;
-      max-width: 550px;
-      margin: 4rem auto 0 auto;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
-    }
-    .countdown-container h3 {
-      color: var(--primary);
-      font-size: 1.3rem;
-      margin-bottom: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .countdown { display: flex; justify-content: center; gap: 1.2rem; }
-    .time-box {
-      display: flex; flex-direction: column; align-items: center;
-      background: #ffffff; padding: 0.8rem 1rem; border-radius: 15px;
-      min-width: 75px; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    }
-    .time-box span { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
-    .time-box small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; text-transform: uppercase; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -530,10 +529,7 @@
       <p>Cari Amici e Parenti, abbiamo già quasi tutto il necessario per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
-    <!-- CATALOGO -->
-    <div id="catalog"></div>
-
-    <!-- BOX COUNTDOWN -->
+    <!-- BOX COUNTDOWN IN TESTA ALLA PAGINA -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
       <div class="countdown" id="countdown-timer">
@@ -543,6 +539,9 @@
         <div class="time-box"><span id="seconds">00</span><small>Secondi</small></div>
       </div>
     </div>
+
+    <!-- CATALOGO -->
+    <div id="catalog"></div>
   </div>
 
   <!-- MODALE DETTAGLIO ESPERIENZA -->
@@ -569,7 +568,7 @@
     <div class="modal-box">
       <button class="modal-close" onclick="closeCartModal()">✕</button>
       <div class="modal-content" style="padding-top: 3rem;">
-        <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.8rem;">Il tuo Regalo 🎁</h2>
+        <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center;">Il tuo Regalo 🎁</h2>
         
         <div id="cartItemsList">
           <!-- Lista riempita dinamicamente -->
@@ -586,14 +585,14 @@
           <p class="gifter-help">Così sapremo chi ringraziare per queste esperienze! ❤️</p>
         </div>
 
+        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI -->
+        <div style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+          Seleziona sempre <b>"Invia a un amico"</b> su PayPal 🌸
+        </div>
+
         <!-- TASTI DI CHECKOUT -->
         <button onclick="sendWhatsApp()" class="btn-wa">💬 1. Avvisaci su WhatsApp</button>
         <a id="cartPaypalBtn" class="btn-buy btn-paypal" target="_blank" rel="noopener">🎁 2. Paga con PayPal</a>
-
-        <!-- AVVISO PAYPAL GUIDATO SOTTO IL PULSANTE -->
-        <div class="paypal-helper-box">
-          📱 <i>Nota: Se si apre l'App di PayPal sul telefono, clicca il tasto nero <b>"Invia"</b> in basso, digita <b><span id="paypalAmountHint">0€</span></b> e seleziona <b>"Invia a un amico"</b> per non pagare commissioni.</i> 🌸
-        </div>
 
         <!-- BOX BONIFICO BANCARIO GENERALE -->
         <div class="iban-container">
@@ -613,12 +612,14 @@
     const WHATSAPP_NUMBER = "393515650000"; 
     
     const experiences = [
+      // CATEGORIA CLASSICO IN CIMA!
+      { id: 11, category: "Classico", title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" },
+
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
       { id: 7, category: "Viaggi", title: "Primo viaggio e Baby dance a Ibiza per Olivia", price: 50, image: "ibiza.jpg", snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.", description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!" },
       
       { id: 2, category: "Visite e Musei", title: "La prima volta a Gardaland di Olivia", price: 50, image: "gardaland.jpg", snippet: "Una giornata magica tra personaggi delle fiabe, colori e giostre.", description: "Una giornata intera immersi nel divertimento di Gardaland! Tra palloncini colorati, trenini a tema e le risate sul carosello delle fiabe." },
       { id: 3, category: "Visite e Musei", title: "La prima volta a Collodi di Olivia", price: 30, image: "collodi.jpg", snippet: "Alla scoperta del Parco di Pinocchio e delle meraviglie toscane.", description: "Visita al Parco di Pinocchio a Collodi: una passeggiata tra sculture all'aperto, teatrini di marionette e sentieri incantati nella natura." },
-      { id: 6, category: "Visite e Musei", title: "Prima visita di Olivia allo Zoo di Pistoia", price: 30, image: "zoo.jpg", snippet: "Una giornata immersi nella natura per conoscere da vicino gli animali.", description: "Una passeggiata nel parco zoologico di Pistoia tra giraffe, pinguini e leoni, per imparare ad amare e rispettare la natura e il mondo animale." },
       { id: 9, category: "Visite e Musei", title: "La prima volta di Olivia all'Acquario di Genova", price: 40, image: "acquario.jpg", snippet: "Tra delfini, foche e squali nei fondali marini più affascinanti.", description: "Un viaggio magico sotto il mare tra le vasche giganti dell'Acquario di Genova: per ammirare da vicino i delfini, i pinguini e le creature degli abissi con gli occhi pieni di stupore!" },
       
       { id: 4, category: "Sport", title: "Il primo corso di nuoto di Olivia", price: 50, image: "piscina.jpg", snippet: "Corso di acquaticità neonatale per giocare in acqua in sicurezza.", description: "Il pacchetto per il primo corso di acquaticità neonatale: per familiarizzare con l'acqua, migliorare la coordinazione e fare tanti tuffi spensierati." },
@@ -627,9 +628,7 @@
       { id: 12, category: "Sport", title: "La prima lezione di CrossFit di Olivia", price: 30, image: "crossfit.jpg", snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.", description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!" },
       { id: 13, category: "Sport", title: "Le prime lezioni di arrampicata di Olivia", price: 10, image: "arrampicata.jpg", snippet: "Scarpette minuscole e le prime prese colorate in parete per piccole scimmiette.", description: "Un mini-corso di arrampicata indoor per imparare a sfidare la gravità divertendosi in totale sicurezza. Tra prese colorate, materassi morbidi e imbracature su misura, Olivia inizierà a scalare le sue prime piccole vette!" },
       
-      { id: 10, category: "Relax & Varie", title: "Supporto psicologico e aperitivi per Babbo e Mamma", price: 10, image: "supporto.jpg", snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.", description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!" },
-      
-      { id: 11, category: "Classico", title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" }
+      { id: 10, category: "Relax & Varie", title: "Supporto psicologico e aperitivi per Babbo e Mamma", price: 10, image: "supporto.jpg", snippet: "Un calice di vino, uno spritz e un momento di tregua per ricaricare le batterie.", description: "I viaggi e le avventure con Olivia saranno stupendi, ma ogni tanto mamma Camilla e babbo avranno bisogno di una sacrosanta pausa spritz per sopravvivere alle notti insonni. La salute mentale dei genitori ringrazia calorosamente!" }
     ];
 
     const catIcons = {
@@ -659,7 +658,6 @@
     const cartPaypalBtn = document.getElementById("cartPaypalBtn");
     const cartIbanCausale = document.getElementById("cartIbanCausale");
     const gifterNameInput = document.getElementById("gifterName");
-    const paypalAmountHint = document.getElementById("paypalAmountHint");
 
     // 💡 FUNZIONI PRINCIPALI
     function renderCatalog() {
@@ -814,13 +812,8 @@
 
       cartTotalSum.innerText = total + "€";
       
-      // LINK PAYPAL SEMPRE CORRETTO CON IMPORTO IN EUR
-      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}/${total}EUR`;
-      
-      // AGGIORNA IL TESTO DELL'HINT NEL BOX SOTTOSTANTE
-      if(paypalAmountHint) {
-        paypalAmountHint.innerText = total + "€";
-      }
+      cartPaypalBtn.href = `https://paypal.me/${PAYPAL_USERNAME}`;
+      cartPaypalBtn.innerText = `🎁 2. Apri PayPal (Digita ${total}€)`;
       
       let causaleStr = titles.join(" + ");
       if(causaleStr.length > 80) causaleStr = causaleStr.substring(0, 77) + "...";
