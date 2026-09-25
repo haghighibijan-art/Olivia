@@ -79,7 +79,7 @@
     }
 
     header h1 {
-      font-size: 3.4rem; /* TITOLO MOLTO PIU' GRANDE */
+      font-size: 3.4rem; 
       color: var(--primary);
       margin-bottom: 1.2rem;
       font-weight: 800;
@@ -87,9 +87,9 @@
     }
 
     header p {
-      font-size: 1.35rem; /* TESTO PIU' GRANDE */
+      font-size: 1.35rem; 
       color: var(--text-muted);
-      max-width: 850px; /* Allargato per contenere meglio il testo grande */
+      max-width: 850px; 
       margin: 0 auto;
       line-height: 1.7;
     }
@@ -107,7 +107,7 @@
     .category-title {
       font-size: 2.3rem; 
       color: var(--primary);
-      margin-bottom: 3.5rem; /* Più spazio tra titolo categoria e oggetti */
+      margin-bottom: 3.5rem; 
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -124,7 +124,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 4.5rem; /* AUMENTATO A ~7 CENTIMETRI TRA UNA CARD E L'ALTRA */
+      gap: 4.5rem; 
     }
 
     .card {
@@ -581,6 +581,7 @@
           <h2 id="modalTitle"></h2>
           <span class="modal-price" id="modalPrice"></span>
         </div>
+        <!-- IMPORTANTE: Usiamo innerHTML tramite il Javascript per poter leggere i tag HTML come il Grassetto -->
         <p class="modal-desc" id="modalDesc"></p>
         
         <div id="modalActions"></div>
@@ -637,8 +638,8 @@
     const WHATSAPP_NUMBER = "393515650000"; 
     
     const experiences = [
-      // CATEGORIA CLASSICO IN CIMA!
-      { id: 11, category: "Classico", title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio (ti basterà inserire i dati di login che ti abbiamo fornito).", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" },
+      // CATEGORIA CLASSICO IN CIMA! (Testo aggiornato con Numero Lista e PW visibili e formattati)
+      { id: 11, category: "Classico", title: "Per un regalo tradizionale - IDEALBIMBO", price: "Variabile", image: "lista.jpg", snippet: "Se preferisci un oggettino classico, abbiamo preparato anche una lista in negozio.", description: "Siamo stati da Idealbimbo e abbiamo creato una wishlist dedicata con le cose più classiche e utili per i primi mesi. Cliccando il bottone qui sotto potrai accedere alla pagina del negozio con queste credenziali:<br><br><b>Numero lista:</b> 616386<br><b>PW:</b> OLIVIA", isExternalLink: true, urlTarget: "https://www.idealbimbo.it/lista-di-nascita.asp" },
 
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
       { id: 7, category: "Viaggi", title: "Primo viaggio e Baby dance a Ibiza per Olivia", price: 50, image: "ibiza.jpg", snippet: "Tramonti spettacolari, musica e i primi balli a piedi nudi sulla spiaggia.", description: "Alla scoperta dell'isola magica: giornate in calette tranquille, merende vista mare e scatenatissimi balli serali di baby dance al tramonto!" },
@@ -735,7 +736,8 @@
       modalImg.src = exp.image;
       modalImgLink.href = exp.image; 
       modalTitle.innerText = exp.title;
-      modalDesc.innerText = exp.description;
+      // Usiamo innerHTML per assicurarci che i tag HTML (come <b> e <br>) della descrizione IdealBimbo vengano letti correttamente
+      modalDesc.innerHTML = exp.description;
       
       const priceText = typeof exp.price === 'number' ? exp.price + "€" : exp.price;
       modalPrice.innerText = priceText;
