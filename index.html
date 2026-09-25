@@ -30,30 +30,11 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 5rem 1rem 4rem;
+      padding: 3rem 1rem 2rem;
     }
 
     .container {
       max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 0.75rem;
-      font-weight: 800;
-    }
-
-    header p {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 650px;
       margin: 0 auto;
     }
 
@@ -64,7 +45,7 @@
       border-radius: 20px;
       padding: 1.5rem;
       max-width: 550px;
-      margin: 0 auto 4rem auto; /* Spazio sotto il timer, centrato */
+      margin: 0 auto 3.5rem auto; /* Spazio sotto il timer */
       text-align: center;
       box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
     }
@@ -91,33 +72,50 @@
       .time-box small { font-size: 0.7rem; }
     }
 
-    /* --- CATEGORIE E SPAZIATURE --- */
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-weight: 800;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* --- CATEGORIE E SPAZIATURE MAGGIORATE --- */
     .category-section {
-      margin-bottom: 5rem;
+      margin-bottom: 7rem; /* Maggiore spaziatura tra categorie */
     }
 
     .category-title {
-      font-size: 1.8rem;
+      font-size: 2.3rem; /* Titolo più grande */
       color: var(--primary);
-      margin-bottom: 2rem;
-      border-bottom: 2px dashed #ffccd5;
-      padding-bottom: 0.5rem;
+      margin-bottom: 2.5rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center; /* Centra il titolo e l'icona */
-      gap: 12px;
+      gap: 15px;
     }
 
     .category-icon {
-      font-size: 1.8rem;
+      font-size: 2.3rem; /* Icona più grande */
     }
 
     /* --- GRIGLIA CENTRATA --- */
     .grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center; /* CENTRATURA ATTIVATA QUI */
+      justify-content: center;
       gap: 2rem;
     }
 
@@ -133,7 +131,6 @@
       border: 1px solid #f1f5f9;
       position: relative; 
       
-      /* Dimensioni flessibili e limitate per mantenere l'aspetto a griglia ma centrato */
       flex: 1 1 280px;
       max-width: 330px; 
     }
@@ -514,6 +511,19 @@
     .iban-detail strong {
       color: var(--text);
     }
+
+    /* --- FOOTER (DISCLAIMER) --- */
+    .footer-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid #cbd5e1;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body>
@@ -524,11 +534,7 @@
   </button>
 
   <div class="container">
-    <header>
-      <h1>Le Future Avventure di Olivia 🍼✨</h1>
-      <p>Cari Amici e Parenti, abbiamo già quasi tutto il necessario per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
-    </header>
-
+    
     <!-- BOX COUNTDOWN IN TESTA ALLA PAGINA -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
@@ -540,8 +546,19 @@
       </div>
     </div>
 
+    <header>
+      <h1>Le Future Avventure di Olivia 🍼✨</h1>
+      <p>Cari Amici e Parenti, abbiamo già quasi tutto il necessario per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
+    </header>
+
     <!-- CATALOGO -->
     <div id="catalog"></div>
+    
+    <!-- DICITURA A FONDO PAGINA -->
+    <div class="footer-note">
+      Questa pagina è una lista nascita privata, finalizzata esclusivamente alla raccolta di regali da parte di amici e parenti.
+    </div>
+
   </div>
 
   <!-- MODALE DETTAGLIO ESPERIENZA -->
