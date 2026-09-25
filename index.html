@@ -38,14 +38,14 @@
       margin: 0 auto;
     }
 
-    /* --- COUNTDOWN (ORA IN TESTA) --- */
+    /* --- COUNTDOWN (IN TESTA) --- */
     .countdown-container {
       background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
       border: 1px solid #ffccd5;
       border-radius: 20px;
       padding: 1.5rem;
       max-width: 550px;
-      margin: 0 auto 3.5rem auto; /* Spazio sotto il timer */
+      margin: 0 auto 3.5rem auto; 
       text-align: center;
       box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
     }
@@ -72,51 +72,59 @@
       .time-box small { font-size: 0.7rem; }
     }
 
+    /* --- INTESTAZIONE (INGRANDITA) --- */
     header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 3.4rem; /* TITOLO MOLTO PIU' GRANDE */
       color: var(--primary);
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.2rem;
       font-weight: 800;
+      line-height: 1.2;
     }
 
     header p {
-      font-size: 1.15rem;
+      font-size: 1.35rem; /* TESTO PIU' GRANDE */
       color: var(--text-muted);
-      max-width: 650px;
+      max-width: 850px; /* Allargato per contenere meglio il testo grande */
       margin: 0 auto;
+      line-height: 1.7;
     }
 
-    /* --- CATEGORIE E SPAZIATURE MAGGIORATE --- */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.5rem; }
+      header p { font-size: 1.15rem; }
+    }
+
+    /* --- CATEGORIE E SPAZIATURE --- */
     .category-section {
-      margin-bottom: 7rem; /* Maggiore spaziatura tra categorie */
+      margin-bottom: 7rem; 
     }
 
     .category-title {
-      font-size: 2.3rem; /* Titolo più grande */
+      font-size: 2.3rem; 
       color: var(--primary);
-      margin-bottom: 2.5rem;
+      margin-bottom: 3.5rem; /* Più spazio tra titolo categoria e oggetti */
       font-weight: 800;
       display: flex;
       align-items: center;
-      justify-content: center; /* Centra il titolo e l'icona */
+      justify-content: center; 
       gap: 15px;
     }
 
     .category-icon {
-      font-size: 2.3rem; /* Icona più grande */
+      font-size: 2.3rem; 
     }
 
-    /* --- GRIGLIA CENTRATA --- */
+    /* --- GRIGLIA CENTRATA CON MAGGIORE SPAZIATURA --- */
     .grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem;
+      gap: 4.5rem; /* AUMENTATO A ~7 CENTIMETRI TRA UNA CARD E L'ALTRA */
     }
 
     .card {
