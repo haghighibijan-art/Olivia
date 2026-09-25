@@ -64,6 +64,14 @@
     }
     .time-box span { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
     .time-box small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; text-transform: uppercase; font-weight: 600; }
+    
+    .countdown-target-date {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-top: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
 
     @media (max-width: 500px) {
       .countdown { gap: 0.5rem; }
@@ -543,7 +551,7 @@
 
   <div class="container">
     
-    <!-- BOX COUNTDOWN IN TESTA ALLA PAGINA -->
+    <!-- BOX COUNTDOWN IN TESTA ALLA PAGINA CON DATA -->
     <div class="countdown-container">
       <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
       <div class="countdown" id="countdown-timer">
@@ -552,6 +560,7 @@
         <div class="time-box"><span id="minutes">00</span><small>Minuti</small></div>
         <div class="time-box"><span id="seconds">00</span><small>Secondi</small></div>
       </div>
+      <div class="countdown-target-date">8 Dicembre 2026</div>
     </div>
 
     <header>
@@ -651,7 +660,7 @@
       { id: 5, category: "Sport", title: "Prime lezioni di surf per Olivia a Fuerteventura", price: 50, image: "surf.jpg", snippet: "Onde oceaniche, sabbia dorata e le prime pagaiate sulla tavola.", description: "Un'avventura tra le onde delle Canarie! Include le prime lezioni di baby-surf con istruttore, mutina e tanto divertimento sulle spiagge di Fuerteventura." },
       { id: 8, category: "Sport", title: "Prime lezioni di sci all'Abetone", price: 50, image: "abetone.jpg", snippet: "Pupazzi di neve, slittino e i primi passi con gli sciettini sulla neve fresca.", description: "Il battesimo della neve sulle vette toscane dell'Abetone: maestri di sci dedicati ai più piccoli, noleggio attrezzatura e cioccolata calda al rifugio." },
       { id: 12, category: "Sport", title: "La prima lezione di CrossFit di Olivia", price: 30, image: "crossfit.jpg", snippet: "Un mini WOD per iniziare a muoversi e saltare come una vera campionessa.", description: "Il primissimo ingresso al Box per Olivia! Tra kettlebell morbidi, tappetoni e i primi 'burpees' a gattoni. Un modo divertente per farle scoprire lo sport e l'energia della community del CrossFit fin da piccolissima!" },
-      { id: 13, category: "Sport", title: "Le prime lezioni di arrampicata di Olivia", price: 10, image: "arrampicata.jpg", snippet: "Scarpette minuscole e le prime prese colorate in parete per piccole scimmiette.", description: "Un mini-corso di arrampicata indoor per imparare a sfidare la gravità divertendosi in totale sicurezza. Tra prese colorate, materassi morbidi e imbracature su misura, Olivia inizierà a scalare le internal prime piccole vette!" },
+      { id: 13, category: "Sport", title: "Le prime lezioni di arrampicata di Olivia", price: 10, image: "arrampicata.jpg", snippet: "Scarpette minuscole e le prime prese colorate in parete per piccole scimmiette.", description: "Un mini-corso di arrampicata indoor per imparare a sfidare la gravità divertendosi in totale sicurezza. Tra prese colorate, materassi morbidi e imbracature su misura, Olivia inizierà a scalare le sue prime piccole vette!" },
 
       // 4. VIAGGI
       { id: 1, category: "Viaggi", title: "Il primo viaggio in aereo di Olivia", price: 50, image: "volo.jpg", snippet: "Battesimo dell'aria per esplorare nuove città insieme a mamma e papà.", description: "Un contributo per il primo volo di Olivia! Include la prenotazione del posto, i primi documenti di viaggio e l'inizio del suo diario tra le nuvole." },
