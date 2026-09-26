@@ -38,52 +38,10 @@
       margin: 0 auto;
     }
 
-    /* --- COUNTDOWN (IN TESTA) --- */
-    .countdown-container {
-      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
-      border: 1px solid #ffccd5;
-      border-radius: 20px;
-      padding: 1.5rem;
-      max-width: 550px;
-      margin: 0 auto 3.5rem auto; 
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
-    }
-    .countdown-container h3 {
-      color: var(--primary);
-      font-size: 1.3rem;
-      margin-bottom: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .countdown { display: flex; justify-content: center; gap: 1.2rem; }
-    .time-box {
-      display: flex; flex-direction: column; align-items: center;
-      background: #ffffff; padding: 0.8rem 1rem; border-radius: 15px;
-      min-width: 75px; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    }
-    .time-box span { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
-    .time-box small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; text-transform: uppercase; font-weight: 600; }
-    
-    .countdown-target-date {
-      color: var(--primary);
-      font-size: 1.3rem;
-      margin-top: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 500px) {
-      .countdown { gap: 0.5rem; }
-      .time-box { min-width: 65px; padding: 0.6rem; }
-      .time-box span { font-size: 1.5rem; }
-      .time-box small { font-size: 0.7rem; }
-    }
-
-    /* --- INTESTAZIONE (INGRANDITA) --- */
+    /* --- INTESTAZIONE PRINCIPALE --- */
     header {
       text-align: center;
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
     }
 
     header h1 {
@@ -105,6 +63,137 @@
     @media (max-width: 768px) {
       header h1 { font-size: 2.5rem; }
       header p { font-size: 1.15rem; }
+    }
+
+    /* --- SEZIONE WIDGET SUPERIORI (FANTAPARTO + COUNTDOWN) --- */
+    .hero-widgets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      max-width: 950px;
+      margin: 0 auto 6rem auto;
+      align-items: stretch;
+    }
+
+    /* COUNTDOWN */
+    .countdown-container {
+      background: linear-gradient(135deg, #fff0f2 0%, #ffe4e6 100%);
+      border: 1px solid #ffccd5;
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(242, 122, 125, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+    .countdown-container h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .countdown { display: flex; justify-content: center; gap: 1.2rem; }
+    .time-box {
+      display: flex; flex-direction: column; align-items: center;
+      background: #ffffff; padding: 0.8rem 1rem; border-radius: 15px;
+      min-width: 75px; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+    .time-box span { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .time-box small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; text-transform: uppercase; font-weight: 600; }
+    .countdown-target-date {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-top: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* FANTAPARTO WIDGET */
+    .fantaparto-widget {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .fantaparto-widget:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+    .fantaparto-img {
+      width: 40%;
+      background-color: #f8fafc;
+    }
+    .fantaparto-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fantaparto-content {
+      width: 60%;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .fantaparto-content h3 {
+      color: #3b82f6; /* Un colore azzurro festoso per differenziarlo */
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+    }
+    .fantaparto-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .fantaparto-pw {
+      background: #f1f5f9;
+      padding: 0.6rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      color: var(--text);
+      border: 1px dashed #cbd5e1;
+    }
+    .fantaparto-pw strong {
+      color: var(--primary);
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+    }
+    .btn-fantaparto {
+      background: #3b82f6;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.8rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .btn-fantaparto:hover {
+      background: #2563eb;
+    }
+
+    @media (max-width: 600px) {
+      .countdown { gap: 0.5rem; }
+      .time-box { min-width: 65px; padding: 0.6rem; }
+      .time-box span { font-size: 1.5rem; }
+      .time-box small { font-size: 0.7rem; }
+      
+      .fantaparto-widget { flex-direction: column; }
+      .fantaparto-img { width: 100%; height: 160px; }
+      .fantaparto-content { width: 100%; text-align: center; }
     }
 
     /* --- CATEGORIE E SPAZIATURE --- */
@@ -502,6 +591,17 @@
     }
     .btn-wa:hover { background: #1da851; }
 
+    /* --- AVVISO PAYPAL (TESTO INGRANDITO) --- */
+    .paypal-alert {
+      text-align: center;
+      font-size: 1.15rem; /* Testo più grande come richiesto */
+      color: #64748b; 
+      margin-bottom: 1.2rem;
+    }
+    .paypal-alert b {
+      color: #334155; 
+    }
+
     /* --- IBAN --- */
     .iban-container {
       background-color: #f8fafc;
@@ -551,24 +651,43 @@
 
   <div class="container">
     
-    <!-- BOX COUNTDOWN IN TESTA ALLA PAGINA CON DATA -->
-    <div class="countdown-container">
-      <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
-      <div class="countdown" id="countdown-timer">
-        <div class="time-box"><span id="days">00</span><small>Giorni</small></div>
-        <div class="time-box"><span id="hours">00</span><small>Ore</small></div>
-        <div class="time-box"><span id="minutes">00</span><small>Minuti</small></div>
-        <div class="time-box"><span id="seconds">00</span><small>Secondi</small></div>
-      </div>
-      <div class="countdown-target-date">8 Dicembre 2026</div>
-    </div>
-
+    <!-- INTESTAZIONE PRINCIPALE -->
     <header>
       <h1>Le Future Avventure di Olivia 🍼✨</h1>
       <p>Cari Amici e Parenti, abbiamo già quasi tutto il necessario per accogliere Olivia. Se desiderate farle un regalo, ci farebbe piacere che contribuiste ai suoi primi ricordi ed esperienze di vita insieme a noi!</p>
     </header>
 
-    <!-- CATALOGO -->
+    <!-- WIDGETS INIZIALI: FANTAPARTO E COUNTDOWN -->
+    <div class="hero-widgets">
+      
+      <!-- FANTAPARTO -->
+      <div class="fantaparto-widget">
+        <div class="fantaparto-img">
+          <img src="fantaparto.jpg" alt="Gioco FantaParto">
+        </div>
+        <div class="fantaparto-content">
+          <h3>🎲 Gioca al FantaParto!</h3>
+          <p>Indovina il giorno, l'ora e il peso di Olivia. Un piccolo gioco gratuito per divertirci insieme!</p>
+          <div class="fantaparto-pw">Chiave di accesso: <strong>OLIVIA</strong></div>
+          <a href="https://fantaparto.it/brogioni-haghighitajvar" target="_blank" class="btn-fantaparto">Partecipa al gioco ➔</a>
+        </div>
+      </div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown-container">
+        <h3>✈️ ARRIVO PREVISTO IN 🌸</h3>
+        <div class="countdown" id="countdown-timer">
+          <div class="time-box"><span id="days">00</span><small>Giorni</small></div>
+          <div class="time-box"><span id="hours">00</span><small>Ore</small></div>
+          <div class="time-box"><span id="minutes">00</span><small>Minuti</small></div>
+          <div class="time-box"><span id="seconds">00</span><small>Secondi</small></div>
+        </div>
+        <div class="countdown-target-date">8 Dicembre 2026</div>
+      </div>
+
+    </div>
+
+    <!-- CATALOGO ESPERIENZE -->
     <div id="catalog"></div>
     
     <!-- DICITURA A FONDO PAGINA -->
@@ -619,8 +738,8 @@
           <p class="gifter-help">Così sapremo chi ringraziare per queste esperienze! ❤️</p>
         </div>
 
-        <!-- AVVISO PAYPAL CONTRO LE COMMISSIONI EVIDENZIATO SOLO NELLA MISURA -->
-        <div style="text-align: center; font-size: 1.15rem; color: #64748b; margin-bottom: 1.2rem;">
+        <!-- AVVISO PAYPAL (TESTO INGRANDITO COME DA RICHIESTA) -->
+        <div class="paypal-alert">
           Seleziona sempre <b>"Invia a un amico"</b> su PayPal 🌸
         </div>
 
